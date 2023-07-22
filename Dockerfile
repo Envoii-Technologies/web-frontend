@@ -11,8 +11,8 @@ WORKDIR /usr/app
 COPY . /usr/app
 COPY .npmrc .
 
-RUN yarn install --frozen-lockfile --network-timeout 1000000
-RUN GITHUB_TOKEN=$GITHUB_TOKEN yarn build
+RUN  GITHUB_TOKEN=$GITHUB_TOKEN yarn install --frozen-lockfile --network-timeout 1000000
+RUN yarn build
 
 FROM nginx:1.23.1-alpine
 
