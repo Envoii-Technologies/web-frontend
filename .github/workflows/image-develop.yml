@@ -24,5 +24,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker build . --tag ghcr.io/envoii-technologies/web-frontend:develop-latest --build-arg GITHUB_TOKEN=$GITHUB_TOKEN
+          docker build  --build-arg GITHUB_TOKEN=$GITHUB_TOKEN --tag ghcr.io/envoii-technologies/web-frontend:develop-latest .
           docker push ghcr.io/envoii-technologies/web-frontend:develop-latest
