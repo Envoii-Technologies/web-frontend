@@ -27,3 +27,10 @@ jobs:
         run: |
           docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/web-frontend:develop-latest .
           docker push ghcr.io/envoii-technologies/web-frontend:develop-latest
+      - name: semantic-release
+        run: npm run semantic-release:dev
+        env:
+          #TO DO - Not all three tokens *should* be needed
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          #NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
