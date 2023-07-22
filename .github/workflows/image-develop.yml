@@ -9,8 +9,9 @@ on:
 jobs:
   build-and-push-image:
     permissions:
-      contents: write
+      contents: read
       packages: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
