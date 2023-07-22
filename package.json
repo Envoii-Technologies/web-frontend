@@ -1,0 +1,47 @@
+{
+  "name": "web-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=5500 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port=5500 --strictPort",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "semantic-release:dev": "semantic-release --branches develop",
+    "commit": "cz",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,css,less,scss,vue,json,gql,md}\""
+  },
+  "dependencies": {
+    "@envoii-technologies/grapefruit-ui": "^1.1.0",
+    "@originjs/vite-plugin-federation": "^1.2.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "prettier": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
+    "react-singleton-context": "^1.0.2",
+    "semantic-release": "^21.0.7",
+    "vite-plugin-federation": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@vitejs/plugin-react": "^4.0.1",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
+    "vite": "^4.4.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "description": "Main front-end, converging all micro-frontend services",
+  "main": "vite.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,20 @@
+FROM node:18-bullseye
+
+ARG CACHEBUST=1
+
+ARG GITHUB_TOKEN
+
+ENV GITHUB_TOKEN ${GITHUB_TOKEN}
+
+WORKDIR /app
+
+COPY .npmrc .
+COPY package.json . 
+
+RUN yarn install --network-timeout 1000000
+
+COPY . .
+
+EXPOSE 5500
+
+CMD ["yarn", "dev"]

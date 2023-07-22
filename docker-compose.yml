@@ -1,0 +1,58 @@
+version: '3.9'
+
+networks:
+  local-envoii:
+    # external: true
+    driver: bridge
+    
+volumes:
+  data:
+    driver: local
+  cache:
+    driver: local
+  keycloak_data:
+    driver: local
+
+services:
+  web:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.develop 
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "5500:5500"
+    volumes:
+      - "/app/node_modules"
+      - "./:/app"
+    networks:
+      - local-envoii
+
+  dashboard:
+    stdin_open: true
+    build:
+      context: ./../dashboard
+      dockerfile: ./../dashboard/Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "5001:5001"
+    expose:
+      - 5001
+    networks:
+      - local-envoii
+
+  shared:
+    stdin_open: true
+    build:
+      context: ./../shared
+      dockerfile: ./../shared/Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "5000:5000"
+    expose:
+      - 5000
+    networks:
+      - local-envoii
