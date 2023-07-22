@@ -5,8 +5,13 @@ on:
     branches:
       - 'develop'
 
+
 jobs:
   build-and-push-image:
+    permissions:
+      packages: write
+      id-token: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
