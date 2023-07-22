@@ -21,7 +21,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Build develop Image'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker build . --tag ghcr.io/envoii-technologies/web-frontend:develop-latest --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          echo 
+          docker build . --tag ghcr.io/envoii-technologies/web-frontend:develop-latest --build-arg GITHUB_TOKEN=$GITHUB_TOKEN
           docker push ghcr.io/envoii-technologies/web-frontend:develop-latest
 
