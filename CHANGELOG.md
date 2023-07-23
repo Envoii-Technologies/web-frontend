@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 1.0.1-develop.1 (2023-07-23)
 
-
 ### Bug Fixes
 
 * **workflow:** fix Workflow trigger name ([57122b2](https://github.com/Envoii-Technologies/web-frontend/commit/57122b2571bdd9f9a339f7dc5f6c2ce00a407217))
