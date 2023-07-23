@@ -1,9 +1,10 @@
-# # .github/workflows/update-changelog.yaml
-# name: "Update Changelog"
+# # .github/workflows/release-develop.yaml
+# name: "Release New Development Version"
 
 # on:
-#   release:
-#     types: [released]
+#   push:
+#     branches:
+#       - 'develop'
 
 # jobs:
 #   update:

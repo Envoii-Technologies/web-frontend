@@ -1,28 +1,28 @@
-name: ci
+# name: ci
 
-on:
-  push:
-    branches:
-      - 'develop'
+# on:
+#   push:
+#     branches:
+#       - 'develop'
 
-jobs:
-  build-and-push-image:
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+# jobs:
+#   build-and-push-image:
+#     permissions:
+#       contents: read
+#       packages: write
+#       id-token: write
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
-          registry: https://ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Build develop Image'
-        run: |
-          docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/web-frontend:develop-latest .
-          docker push ghcr.io/envoii-technologies/web-frontend:develop-latest
+#       - name: Log in to the Container registry
+#         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+#         with:
+#           registry: https://ghcr.io
+#           username: ${{ github.actor }}
+#           password: ${{ secrets.GITHUB_TOKEN }}
+#       - name: 'Build develop Image'
+#         run: |
+#           docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/web-frontend:develop-latest .
+#           docker push ghcr.io/envoii-technologies/web-frontend:develop-latest
