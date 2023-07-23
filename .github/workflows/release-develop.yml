@@ -2,8 +2,10 @@
 name: "Release Development Version"
 
 on:
-  push:
-    branches: [ main, develop ]
+  workflow_run:
+    workflows: ["Update Development Version"]
+    types:
+      - completed
 
 jobs:
   get-version:
@@ -35,5 +37,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: 'Build develop Image'
       run: |
+        echo "version - ${{ steps.package-info.outputs.version }}"
         docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:${{ steps.package-info.outputs.version }} .
         docker push ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:${{ steps.package-info.outputs.version }}
