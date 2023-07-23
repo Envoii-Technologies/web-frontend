@@ -1,5 +1,5 @@
 # .github/workflows/update-develop.yaml
-name: "Update Development Release Version"
+name: "Update Development Version"
 
 on:
   push:
