@@ -1,7 +1,7 @@
 {
   "name": "web-frontend",
   "private": true,
-  "version": "0.1.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port=5500 --strictPort",
@@ -9,7 +9,7 @@
     "preview": "vite preview --port=5500 --strictPort",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "commit": "git-cz",
-    "release": "standard-version",
+    "release": "standard-version && git push --follow-tags origin main",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,css,less,scss,vue,json,gql,md}\""
   },
   "dependencies": {
