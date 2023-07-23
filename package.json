@@ -8,7 +8,6 @@
     "build": "vite build",
     "preview": "vite preview --port=5500 --strictPort",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "semantic-release:dev": "semantic-release --branches develop",
     "commit": "cz",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,css,less,scss,vue,json,gql,md}\""
   },
