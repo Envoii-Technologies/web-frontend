@@ -1,7 +1,7 @@
 {
   "name": "web-frontend",
   "private": true,
-  "version": "1.0.9-develop.14",
+  "version": "1.0.1-develop.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port=5500 --strictPort",
