@@ -37,6 +37,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - uses: olegtarasov/get-tag@v2.1.2
+        id: tagName
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
@@ -45,5 +47,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Build develop Image'
         run: |
-          docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/web-frontend:${{   github.event.release.tag_name }}-develop .
-          docker push ghcr.io/envoii-technologies/web-frontend:${{ github.event.release.tag_name }}-develop
+          echo ${{ github.event.release.tag_name }}
+          echo $GIT_TAG_NAME
+          docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/web-frontend:$GIT_TAG_NAME-develop .
+          docker push ghcr.io/envoii-technologies/web-frontend:$GIT_TAG_NAME-develop
