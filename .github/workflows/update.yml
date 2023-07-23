@@ -22,6 +22,6 @@ jobs:
         git config --global user.name "<GITHUB BOT>"
         git config --global user.email "<>"
         npx standard-version  ${{ github.ref == 'refs/heads/main' && '' || '--prerelease develop' }}" 
-        git push --follow-tags origin develop
+        git push --follow-tags origin ${{ github.ref == 'refs/heads/main' && 'main' || 'develop' }}" 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
