@@ -21,4 +21,4 @@ jobs:
         cache: 'npm'
     - run: yarn add standard-version -D && yarn release
       env:
-        First_Name: Mona
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
