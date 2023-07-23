@@ -20,7 +20,7 @@ jobs:
       id: package-info
       uses: jaywcjlove/github-action-package@main
 
-    - run: echo "name - ${{ steps.info.outputs.name }}"
-    - run: echo "version - ${{ steps.info.outputs.version }}"
-    - run: echo "description - ${{ steps.info.outputs.description }}"
-    - run: echo "author - ${{ steps.info.outputs.author }}"
+    - run: echo "name - ${{ steps.package-info.outputs.name }}"
+    - run: echo "version - ${{ steps.package-info.outputs.version }}"
+    - run: echo "description - ${{ steps.package-info.outputs.description }}"
+    - run: echo "author - ${{ steps.package-info.outputs.author }}"
