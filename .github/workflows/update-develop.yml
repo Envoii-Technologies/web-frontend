@@ -1,9 +1,9 @@
 # .github/workflows/update.yaml
-name: "Update Version"
+name: "Update Develop Version"
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ develop ]
 
 jobs:
   update-version:
@@ -21,7 +21,7 @@ jobs:
     - run: |
         git config --global user.name "<GITHUB BOT>"
         git config --global user.email "<>"
-        npx standard-version  ${{ github.ref == 'refs/heads/main' && '' || '--prerelease develop' }}" 
-        git push --follow-tags origin ${{ github.ref == 'refs/heads/main' && 'main' || 'develop' }}" 
+        npx standard-version  --prerelease develop
+        git push --follow-tags origin develop 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
