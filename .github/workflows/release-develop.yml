@@ -12,7 +12,15 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-    - name: package.json info
-      id: info
+    - name: info
+      id: branch-info
       uses: actions/checkout@v3
-    - run: echo "${{ github.ref == 'refs/heads/main' && 'production' || 'develop' }}"
+    - run: echo "${{ github.ref == 'refs/heads/main' && 'production' || 'develop' }}" # gets branch
+    - name: package.json info
+      id: package-info
+      uses: jaywcjlove/github-action-package@main
+
+    - run: echo "name - ${{ steps.info.outputs.name }}"
+    - run: echo "version - ${{ steps.info.outputs.version }}"
+    - run: echo "description - ${{ steps.info.outputs.description }}"
+    - run: echo "author - ${{ steps.info.outputs.author }}"
