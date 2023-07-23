@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.6 (2023-07-23)
+
+
+### Bug Fixes
+
+* test versioning ([61e5efd](https://github.com/Envoii-Technologies/web-frontend/commit/61e5efdc94014e5c01b96e3b6ee05bcd098d5ea9))
+
 ### 1.0.5 (2023-07-23)
 
 
