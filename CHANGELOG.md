@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.9-develop.13 (2023-07-23)
+
+
+### Bug Fixes
+
+* fix workflow switch ([3a521e2](https://github.com/Envoii-Technologies/web-frontend/commit/3a521e22ddc4e7f1b49449abbab4c38b5f48726e))
+
 ### 1.0.9-develop.12 (2023-07-23)
 
 
