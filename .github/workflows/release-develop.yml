@@ -19,4 +19,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: yarn install && yarn release
+    - run: yarn add standard-version -D && yarn release
