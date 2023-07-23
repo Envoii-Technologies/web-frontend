@@ -3,7 +3,7 @@ name: "Release Version"
 
 on:
   workflow_run:
-    workflows: ["Update Development Version"]
+    workflows: ["Update Version"]
     types:
       - completed
 
