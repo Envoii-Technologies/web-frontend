@@ -46,7 +46,5 @@ jobs:
 
       - name: 'Build develop Image'
         run: |
-          echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
-          echo $GIT_TAG
-          docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/web-frontend:$GIT_TAG-develop .
-          docker push ghcr.io/envoii-technologies/web-frontend:$GIT_TAG-develop
+          docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/web-frontend:${GITHUB_REF:10}-develop .
+          docker push ghcr.io/envoii-technologies/web-frontend:${GITHUB_REF:10}-develop
