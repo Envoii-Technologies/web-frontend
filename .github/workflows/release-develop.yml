@@ -3,8 +3,7 @@ name: "Release Development Version"
 
 on:
   push:
-    tags:
-      - 'v*.*.*-*.*'
+    branches: [ main, develop ]
 
 jobs:
   get-version:
@@ -15,5 +14,5 @@ jobs:
     steps:
     - name: package.json info
       id: info
-      uses: jaywcjlove/github-action-package@main
-    - run: echo "version - ${{ steps.info.outputs.version }}"
+      uses: actions/checkout@v3
+    - run: echo "${{ github.ref == 'refs/heads/main' && 'production' || 'develop' }}"
