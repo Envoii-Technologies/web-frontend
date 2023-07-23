@@ -37,8 +37,8 @@
     "vite": "^4.4.0"
   },
   "resolutions": {
-    "wrap-ansi": "8.1.0",
-    "string-width": "6.1.0"
+    "wrap-ansi": "^7.0.0",
+    "string-width": "^5.0.1"
   },
   "config": {
     "commitizen": {
