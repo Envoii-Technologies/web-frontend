@@ -19,7 +19,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npx standard-version
+    - run: |
+        git config --global user.name "<GITHUB BOT>"
+        git config --global user.email "<>"
+        npx standard-version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
