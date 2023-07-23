@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.9-develop.8 (2023-07-23)
+
+
+### Bug Fixes
+
+* add docker process ([813595f](https://github.com/Envoii-Technologies/web-frontend/commit/813595f34d723ac2addb68267976268bdc86d83b))
+
 ### 1.0.9-develop.7 (2023-07-23)
 
 
