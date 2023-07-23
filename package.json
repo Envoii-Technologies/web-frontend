@@ -9,6 +9,7 @@
     "preview": "vite preview --port=5500 --strictPort",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "commit": "git-cz",
+    "release": "standard-version",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,css,less,scss,vue,json,gql,md}\""
   },
   "dependencies": {
@@ -32,11 +33,12 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
+    "standard-version": "^9.5.0",
     "vite": "^4.4.0"
   },
   "resolutions": {
-    "wrap-ansi": "7.0.0",
-    "string-width": "4.1.0"
+    "wrap-ansi": "8.1.0",
+    "string-width": "6.1.0"
   },
   "config": {
     "commitizen": {
