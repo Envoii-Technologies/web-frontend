@@ -35,5 +35,11 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: 'Build develop Image'
       run: |
-        docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:${{ steps.package-info.outputs.version }} .
-        docker push ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:${{ steps.package-info.outputs.version }}
+        if [[ ${{ github.ref }} == refs/heads/main ]]; then
+          docker push ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:${{ steps.package-info.outputs.version }}
+          docker push ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:latest
+          docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:latest .
+        else
+          docker push ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:${{ steps.package-info.outputs.version }}
+          docker build  --build-arg GITHUB_TOKEN=${{ secrets.BUILD_ACCESS_TOKEN }} --tag ghcr.io/envoii-technologies/${{ steps.package-info.outputs.name }}:${{ steps.package-info.outputs.version }} .
+        fi
