@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.1 (2023-07-24)
+
+
+### Bug Fixes
+
+* **workflow:** change versioning action for production images ([650b0cf](https://github.com/Envoii-Technologies/web-frontend/commit/650b0cf4e37fbd4b34b9530d92f0916c5daecba6))
+
 ### 1.0.2 (2023-07-24)
 
 
