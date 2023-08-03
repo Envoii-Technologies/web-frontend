@@ -16,6 +16,7 @@
     "@envoii-technologies/grapefruit-ui": "^1.1.0",
     "@originjs/vite-plugin-federation": "^1.2.3",
     "cz-conventional-changelog": "^3.3.0",
+    "keycloak-js": "^22.0.1",
     "prettier": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

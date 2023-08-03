@@ -1,19 +1,20 @@
 version: '3.9'
 
-networks:
-  local-envoii:
-    # external: true
-    driver: bridge
-    
 volumes:
-  data:
-    driver: local
-  cache:
-    driver: local
   keycloak_data:
     driver: local
+  db_data:
+    driver: local
+  cache_data:
+    driver: local
+
+networks:
+  envoii:
+    # external: true
+    driver: bridge
 
 services:
+  # web frontend
   web:
     stdin_open: true
     build:
@@ -27,32 +28,114 @@ services:
       - "/app/node_modules"
       - "./:/app"
     networks:
-      - local-envoii
+      - envoii
 
-  dashboard:
-    stdin_open: true
-    build:
-      context: ./../dashboard
-      dockerfile: ./../dashboard/Dockerfile
-      args:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
-    ports:
-      - "5001:5001"
-    expose:
-      - 5001
+  # keycloak database
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+    volumes:
+      - keycloak_data:/var/lib/postgresql/data
     networks:
-      - local-envoii
+      - envoii
 
-  shared:
-    stdin_open: true
-    build:
-      context: ./../shared
-      dockerfile: ./../shared/Dockerfile
-      args:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
+  # keycloak
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: keycloak
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: ${POSTGRESQL_DB}
+      DB_USER: ${POSTGRESQL_USER}
+      DB_PASSWORD: ${POSTGRESQL_PASS}
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_RELATIVE_PATH: /auth
+      # KC_HOSTNAME: keycloak.company.com
+    image: quay.io/keycloak/keycloak:latest
+    command:
+      - start-dev
     ports:
-      - "5000:5000"
-    expose:
-      - 5000
+      - "28080:8080"
+    restart: unless-stopped
     networks:
-      - local-envoii
+      - envoii
+
+  # message broadcaster
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - envoii
+
+  # message cache
+  cache:
+    image: redis
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - cache_data:/data
+    networks:
+      - envoii
+
+  # database
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - db_data:/data/db
+    networks:
+      - envoii
+
+  # database check
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - envoii
+
+  # development migration
+  migration:
+    image: ghcr.io/envoii-technologies/migration:latest-develop
+    depends_on:
+      - postgres
+      - keycloak
+    restart: on-failure
+    environment:
+      - POSTGRESQL_USER=${POSTGRESQL_USER}
+      - POSTGRESQL_PASS=${POSTGRESQL_PASS}
+      - POSTGRESQL_DB=${POSTGRESQL_DB}
+      - KEYCLOAK_URL=${KEYCLOAK_URL}
+      - MONGO_URL=${MONGO_URL}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASS=${MONGO_PASS}
+    networks:
+      - envoii
