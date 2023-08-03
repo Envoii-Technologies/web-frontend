@@ -37,10 +37,6 @@
     "standard-version": "^9.5.0",
     "vite": "^4.4.0"
   },
-  "resolutions": {
-    "wrap-ansi": "^7.0.0",
-    "string-width": "^5.0.1"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
