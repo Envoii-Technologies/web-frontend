@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.3 (2023-08-03)
+
+
+### Bug Fixes
+
+* **package:** change commit dependant module versions ([ed72354](https://github.com/Envoii-Technologies/web-frontend/commit/ed72354fb912533227f6cdaff5f9d5f75da85aa0))
+
 ### 1.0.2 (2023-08-03)
 
 
