@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.2 (2023-08-03)
+
+
+### Performance Improvements
+
+* initialize new Application ([0394bbe](https://github.com/Envoii-Technologies/web-frontend/commit/0394bbe421f3966bee39ccbe9c5275741ae9da75))
+
 ### 1.0.1 (2023-07-24)
 
 
