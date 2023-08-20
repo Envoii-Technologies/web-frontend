@@ -1,0 +1,40 @@
+@use './../../styles-global.scss' as *;
+
+.HorizontalHeader
+{
+    display: flex;
+    border-bottom: $area-edge-border;
+    height: 5rem;
+    width: 100vw;
+    background: white;
+    align-items: center;
+    box-shadow: $box-shadow-bottom;
+
+    &.dark
+    {
+        background: rgb(42, 42, 42);
+        color: white;
+    }
+
+    justify-content: space-between;
+
+    &__brand
+    {
+        padding-left: 1.85rem;
+        display: flex;
+
+        &__logo
+        {
+            height: 2.25rem;
+            padding: 1rem 0;
+        }
+    }
+
+    &__menu
+    {
+        flex-grow: 1;
+        padding: 0 1.85rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+}

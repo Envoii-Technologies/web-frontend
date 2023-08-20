@@ -9,22 +9,6 @@
     align-items: center;
     height: 75vh;
     width: 100vw;
-
-    &__header
-    {
-        display: flex;
-        align-items: center;
-        background: white;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.30);
-        height: 3.75rem;
-        width: 100vw;
-
-        &__logo
-        {
-            padding-left: 1.85rem;
-            height: 2.25rem;
-        }
-    }
 }
 
 
