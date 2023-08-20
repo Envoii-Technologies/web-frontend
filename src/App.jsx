@@ -1,19 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import NavBar from './components/NavBar';
-import Resources from './components/Resources';
-import Tenant from './components/Tenant';
+import { Login } from './views/shared';
+import { Overview } from './views/admin/';
+import { CreateTeam, CreateUser, Dashboard, Cards, Users, CreateCard, ViewCard } from './views/tenant/';
+import { AdminLayout, TenantLayout } from './layouts';
 
-import './App.css';
+import './style.scss';
 
 function App() {
     return (
         <div className="App">
             <Router>
-                <NavBar />
                 <Routes>
-                    <Route path="/:tenant" element={<Resources />} />
-                    <Route path="/login" element={<Tenant />} />
+                    <Route path="/" element={<Navigate to="/login" replace />}/>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/admin" element={<AdminLayout />}>
+                        <Route index element={<Overview />} />
+                    </Route>
+                    <Route path="/:tenant" element={<TenantLayout />}>
+                        <Route index element={<Dashboard />} />
+                        <Route path="settings/users" element={<Users/>}/>
+                        <Route path="settings/users/create" element={<CreateUser/>}/>
+                        <Route path="settings/teams/" element={<CreateTeam/>}/>
+
+                        <Route path="cards" element={<Cards/>}/>
+                        <Route path="cards/create" element={<CreateCard/>}/>
+                        <Route path="cards/:id" element={<ViewCard/>}/>
+                    </Route>
                 </Routes>
             </Router>
         </div>

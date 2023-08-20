@@ -16,6 +16,7 @@ networks:
 services:
   # web frontend
   web:
+    container_name: frontend
     stdin_open: true
     build:
       context: .
@@ -99,6 +100,7 @@ services:
 
   # database
   mongo:
+    container_name: mongo
     image: mongo
     restart: always
     environment:
@@ -106,11 +108,16 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - db_data:/data/db
+    ports:
+      - '27017:27017'
+    expose:
+      - 27017
     networks:
       - envoii
 
   # database check
   mongo-express:
+    container_name: mongo-express
     image: mongo-express
     restart: always
     ports:
@@ -124,6 +131,7 @@ services:
 
   # development migration
   migration:
+    container_name: migration
     image: ghcr.io/envoii-technologies/migration:latest-develop
     depends_on:
       - postgres

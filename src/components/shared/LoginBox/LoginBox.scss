@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.Login__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 75vh;
+    width: 100vw;
+
+    &__header
+    {
+        display: flex;
+        align-items: center;
+        background: white;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.30);
+        height: 3.75rem;
+        width: 100vw;
+
+        &__logo
+        {
+            padding-left: 1.85rem;
+            height: 2.25rem;
+        }
+    }
+}
+
+
+.LoginBox {
+    width: 21rem;
+    padding-top: 12.5rem;
+
+    &__header {
+        color: rgba(32, 50, 87, 0.90);
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+
+        &__text
+        {
+            color: rgba(32, 50, 87, 0.90);
+            font-size: 0.75rem;
+            font-weight: 400;
+            padding-top: 2rem;
+            padding-bottom: 0.25em;
+        }
+
+        &__adress 
+        {
+            display: flex;
+            flex-direction: row;
+            height: 1.875em;
+
+            &__input
+            {
+                flex-grow: 1;
+                border: none;
+                padding-left: 1rem;
+                border: 1px solid #203257;
+                border-top-left-radius: 0.25rem;
+                border-bottom-left-radius: 0.25rem;
+
+                &:focus {
+                    outline: none;
+                    background: none;
+                }
+            }
+
+            &__url
+            {
+                height: calc(100% - 2px);
+                border: 1px solid #203257;
+                border-left: none;
+                border-top-right-radius: 0.25rem;
+                border-bottom-right-radius: 0.25rem;
+                padding-left: 1rem;
+                width: 6rem;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &__error {
+            border: 1px solid #FF8686;
+            border-radius: 0.3125rem;
+            margin: 1rem 0 0;
+
+            &__message {
+                display: flex;
+                align-items: center;
+
+                &__icon
+                {
+                    background: #FF868680;
+                    width: 3rem;
+                    height: 1.875em;
+                }
+
+                &__text
+                {
+                    font-size: 0.75rem;
+                    padding-left: 1rem;
+                }
+                
+            }
+        }
+
+        &__button
+        {
+            margin-top: 2.75rem;
+            height: 2.75rem;
+
+            display: flex;
+            padding: 0.625rem;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.3125rem;
+            background: #568DFF;
+            color: white;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+
+            &:hover
+            {
+                background: rgba(#568DFF, 0.85);
+            }
+        }
+    }
+
+    &__footer {
+        padding-top: 1em;
+        font-size: 0.75rem;
+    }
+}

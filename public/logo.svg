@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1436 320" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.613635,0,0,0.613635,-73.9297,-536.792)">
+        <g transform="matrix(3.75204,0,0,3.75204,37.9336,822.246)">
+            <g>
+                <g transform="matrix(1.25,0,0,0.5,-14.5,23)">
+                    <rect x="46" y="46" width="12" height="4" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(1.07647,1.47017,-0.708716,0.518927,57.6245,-37.5743)">
+                    <rect x="46" y="46" width="12" height="4" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(0.348611,1.55298,-0.487859,0.109514,36.3405,-55.0117)">
+                    <rect x="46" y="46" width="12" height="4" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(1.11429,0,0,1.08333,-31.0857,-6.66667)">
+                    <ellipse cx="114.5" cy="86" rx="17.5" ry="18" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(0.685714,0,0,0.666667,-9.51429,-9.33333)">
+                    <ellipse cx="114.5" cy="86" rx="17.5" ry="18" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(0.571429,0,0,0.555556,-29.4286,-0.777778)">
+                    <ellipse cx="114.5" cy="86" rx="17.5" ry="18" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(0.314286,0,0,0.305556,-8.48571,-6.77778)">
+                    <ellipse cx="114.5" cy="86" rx="17.5" ry="18" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(0.314286,0,0,0.305556,18.5143,-1.27778)">
+                    <ellipse cx="114.5" cy="86" rx="17.5" ry="18" style="fill:rgb(254,230,0);"/>
+                </g>
+                <g transform="matrix(0.428571,0,0,0.416667,16.4286,41.4112)">
+                    <ellipse cx="114.5" cy="86" rx="17.5" ry="18" style="fill:rgb(254,230,0);"/>
+                </g>
+            </g>
+            <g>
+                <g transform="matrix(0.971728,0.236104,-0.272884,1.1231,6.62853,-30.9289)">
+                    <path d="M127,41L122.461,28L108.502,28L104,41L127,41Z"/>
+                </g>
+                <g transform="matrix(0.494522,0.869165,-1.00456,0.571557,118.989,-60.0192)">
+                    <path d="M127,41L122.461,28L108.502,28L104,41L127,41Z"/>
+                </g>
+                <g transform="matrix(-0.224105,0.974565,-1.12638,-0.259015,212.193,-3.53812)">
+                    <path d="M127,41L122.461,28L108.502,28L104,41L127,41Z"/>
+                </g>
+                <g transform="matrix(-0.858079,0.513518,-0.593512,-0.991748,242.494,106.353)">
+                    <path d="M127,41L122.461,28L108.502,28L104,41L127,41Z"/>
+                </g>
+                <g transform="matrix(-0.974102,-0.226109,0.261332,-1.12584,187.21,201.123)">
+                    <path d="M127,41L122.461,28L108.502,28L104,41L127,41Z"/>
+                </g>
+                <g transform="matrix(-0.445457,-0.895303,1.03477,-0.514849,67.4677,234.493)">
+                    <path d="M127,41L122.461,28L108.502,28L104,41L127,41Z"/>
+                </g>
+                <g transform="matrix(0.284871,-0.958566,1.10789,0.329247,-25.4077,172.615)">
+                    <path d="M127,41L122.461,28L108.502,28L104,41L127,41Z"/>
+                </g>
+                <path d="M87.344,39.883C90.305,39.304 93.367,39 96.5,39C122.716,39 144,60.284 144,86.5C144,112.716 122.716,134 96.5,134C70.284,134 49,112.716 49,86.5C49,77.781 51.354,69.607 55.463,62.578C56.687,63.828 58.073,64.915 59.586,65.804C55.552,68.072 52.83,72.348 52.83,77.245C52.83,84.511 58.824,90.41 66.206,90.41C68.145,90.41 69.988,90.003 71.652,89.271C73.033,101.767 83.639,111.5 96.5,111.5C110.298,111.5 121.5,100.298 121.5,86.5C121.5,72.702 110.298,61.5 96.5,61.5C94.666,61.5 92.878,61.698 91.158,62.073L87.409,56.977C88.603,54.404 89.271,51.53 89.271,48.5C89.271,45.416 88.579,42.494 87.344,39.883Z"/>
+            </g>
+        </g>
+        <g transform="matrix(3.125,0,0,3.125,-117.933,705.765)">
+            <text x="267px" y="125px" style="font-family:'PPTelegraf-UltraBold', 'PP Telegraf';font-weight:800;font-size:86.667px;fill:rgb(35,31,32);">e<tspan x="318.827px 371.52px 419.62px 473.96px 497.533px " y="125px 125px 125px 125px 125px ">nvoii</tspan></text>
+            <text x="267px" y="202.65px" style="font-family:'PPTelegraf-UltraBold', 'PP Telegraf';font-weight:800;font-size:86.667px;fill:rgb(35,31,32);">t<tspan x="302.36px 354.1px 406.793px 461.653px 515.907px 569.987px 592.953px 646.947px 704.233px 727.113px 779.633px " y="202.65px 202.65px 202.65px 202.65px 202.65px 202.65px 202.65px 202.65px 202.65px 202.65px 202.65px ">echnologies</tspan></text>
+        </g>
+    </g>
+</svg>

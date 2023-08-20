@@ -1,0 +1,13 @@
+.PageContent
+{
+    position: relative;
+    flex-grow: 1;
+    justify-content: center;
+    display: flex;
+
+    &__wrapper
+    {
+        padding: 2em;
+        width: 800px;
+    }
+}
