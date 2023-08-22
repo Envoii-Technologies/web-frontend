@@ -1,0 +1,76 @@
+@use './../../styles-global.scss' as *;
+
+.FormError {
+    border-radius: $border-radius-default;
+    margin: 1rem 0;
+
+    &.success
+    {
+        border: 1px solid rgba($success-color, 0.5);
+
+        .FormError__message
+        {
+            color: $success-color !important;
+        }
+    }
+
+    &.warning
+    {
+        border: 1px solid rgba($warning-color, 0.5);
+
+        .FormError__message
+        {
+            color: $warning-color;
+        }
+    }
+
+    &.error
+    {
+        border: 1px solid rgba($error-color, 0.5);
+
+        .FormError__message
+        {
+            color: $error-color;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon
+    {
+        width: 3rem;
+        height: 1.875em;
+        font-size: 1.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.success
+        {
+            background: rgba($success-color, 0.25);
+            color: $success-color;
+        }
+
+        &.warning
+        {
+            background: rgba($warning-color, 0.25);
+            color: $warning-color;
+        }
+
+        &.error
+        {
+            background: rgba($error-color, 0.25);
+            color: $error-color;
+        }
+    }
+
+    &__message
+    {
+        font-size: $font-size-small;
+        padding-left: 1rem;
+        font-weight: 800;
+    }
+}

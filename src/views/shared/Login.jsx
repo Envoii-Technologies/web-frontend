@@ -1,15 +1,13 @@
-import { LoginBox } from '../../components/shared/';
-
-import { HorizontalHeader } from '../../components/';
+import { CenterWrapper, HorizontalHeader, LoginWindow } from '../../components/';
 
 export const Login = () => {
-    
-
-    return(
-    <div className='Login__wrapper'>
-    
-        <HorizontalHeader/>
-        <LoginBox/>
-    </div>
-    )
-}
+    return (
+        <>
+            <HorizontalHeader />
+            {/* <LoginBox /> */}
+            <CenterWrapper>
+                <LoginWindow/>
+            </CenterWrapper>
+        </>
+    );
+};

@@ -1,0 +1,14 @@
+@use './../../styles-global.scss' as *;
+
+.TenantLayout
+{
+    max-height: 100vh;
+    display: flex;
+
+    &__content{
+        display: flex;
+        flex-direction: column;
+        background: #FBFBFB;
+        flex-grow: 1;
+    }
+}

@@ -1,7 +1,7 @@
+import PropTypes from "prop-types";
+
 import logoLight from './assets/logo-black.png';
 import logoDark from './assets/logo-white.png';
-
-import PropTypes from "prop-types";
 
 import './HorizontalHeader.scss';
 
