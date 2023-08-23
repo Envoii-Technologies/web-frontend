@@ -133,6 +133,7 @@ export const NavBar = () => {
                                     <>
                                         <li className="NavBar__right__menu__item">
                                             <NavLink
+                                                exact={true}
                                                 className="NavBar__right__menu__item__wrapper parent"
                                                 to={`/${authContext.tenant}/`}
                                             >
@@ -187,6 +188,7 @@ export const NavBar = () => {
                                                                     </button>
                                                                 ) : (
                                                                     <NavLink
+                                                                        exact={true}
                                                                         className="NavBar__right__menu__item__wrapper parent"
                                                                         to={
                                                                             item.path

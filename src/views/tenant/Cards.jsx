@@ -7,9 +7,12 @@ import DataGrid, { SelectColumn } from 'react-data-grid';
 
 import { AuthContext } from '../../context/AuthContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoadingIndicator, PageContent, SearchBar } from '../../components/shared';
+import {
+    LoadingIndicator,
+    PageContent,
+} from '../../components/shared';
 
-import { Button, PageHeader } from '../../components';
+import { Button, PageHeader, SearchBar } from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFileCircleXmark,
@@ -22,7 +25,7 @@ export const Cards = () => {
     const [cardList, setCardList] = useState([]);
     const [oldCardList, setOldCardList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [searchTerm, setSearchTerm ] = useState("");
+    const [searchTerm, setSearchTerm] = useState('');
 
     const authContext = useContext(AuthContext);
 
@@ -43,11 +46,17 @@ export const Cards = () => {
     const columns = [
         SelectColumn,
         // { key: 'id', name: 'ID' },
-        { key: 'title', name: 'Titel', renderCell({ row, onRowChange, tabIndex }) {
-            return (
-                <Link to={`/${authContext.tenant}/cards/${row._id}`}>{row.title}</Link>
-            );
-        }, },
+        {
+            key: 'title',
+            name: 'Titel',
+            renderCell({ row, onRowChange, tabIndex }) {
+                return (
+                    <Link to={`/${authContext.tenant}/cards/${row._id}`}>
+                        {row.title}
+                    </Link>
+                );
+            },
+        },
         { key: '_v', name: 'Version' },
         {
             key: 'updated_at',
@@ -91,15 +100,16 @@ export const Cards = () => {
 
     useEffect(() => {
         setCardList(oldCardList);
-        setCardList(list => list.filter((card) => card.title.includes(searchTerm)))
-    }, [searchTerm])
-    
+        setCardList((list) =>
+            list.filter((card) => card.title.includes(searchTerm))
+        );
+    }, [searchTerm]);
+
     const onSearchSubmit = (term) => {
-        if(term.length <= 1)
-        {
+        if (term.length <= 1) {
             setCardList(oldCardList);
         }
-        setSearchTerm(term)
+        setSearchTerm(term);
     };
 
     const getAllCards = async () => {
@@ -110,7 +120,7 @@ export const Cards = () => {
             .then((res) => {
                 if (res.data.success) {
                     setCardList(res.data.documents);
-                    setOldCardList(res.data.documents)
+                    setOldCardList(res.data.documents);
                     setIsLoading(false);
                 }
             })
@@ -128,34 +138,38 @@ export const Cards = () => {
     } else {
         return (
             <>
-                <PageHeader
-                    title="Karten"
-                >
-                    <Button label="Neue Karte" type="primary" onClick={() => navigate(`/${authContext.tenant}/cards/create`)} />
+                <PageHeader title="Karten">
+                    <SearchBar
+                        onSearchSubmit={(term) => onSearchSubmit(term)}
+                    />
+                    <Button
+                        label="Neue Karte"
+                        type="primary"
+                        onClick={() =>
+                            navigate(`/${authContext.tenant}/cards/create`)
+                        }
+                    />
                 </PageHeader>
 
                 <PageContent>
-                {isLoading ? (
-                    <>...loading</>
-                ) : (
-                    <>
-                            <SearchBar
-                                onSearchSubmit={term => onSearchSubmit(term)}
-                            />
-                        {cardList.length === 0 ? (
-                            <p>Keine Karten vorhanden...</p>
-                        ) : (
-                            <>
-                                <DataGrid
-                                    columns={columns}
-                                    rows={cardList.filter(
-                                        (user) => user.username !== 'envoii'
-                                    )}
-                                />
-                            </>
-                        )}
-                    </>
-                )}
+                    {isLoading ? (
+                        <>...loading</>
+                    ) : (
+                        <>
+                            {cardList.length === 0 ? (
+                                <p>Keine Karten vorhanden...</p>
+                            ) : (
+                                <>
+                                    <DataGrid
+                                        columns={columns}
+                                        rows={cardList.filter(
+                                            (user) => user.username !== 'envoii'
+                                        )}
+                                    />
+                                </>
+                            )}
+                        </>
+                    )}
                 </PageContent>
             </>
         );

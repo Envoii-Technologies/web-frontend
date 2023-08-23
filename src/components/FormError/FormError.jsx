@@ -34,7 +34,8 @@ export const FormError = ({ type, message }) =>
 }
 
 FormError.propTypes = {
-    type: PropTypes.oneOf(["success", "warning", "error"])
+    type: PropTypes.oneOf(["success", "warning", "error"]),
+    message: PropTypes.string,
 };
 FormError.defaultProps = {
     type: "error",
