@@ -12,7 +12,7 @@ export const FormButton = ({ label, onClick, type, ...props }) => {
                 {...props}
             >
                 <div className="FormButton__wrapper">
-                    <span className='FormButton__title'>{ label }</span>
+                    <span className='FormButton__label'>{ label }</span>
                 </div>
             </button>
         </>

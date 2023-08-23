@@ -103,3 +103,6 @@ export const LoginWindow = () => {
         </>
     );
 };
+
+LoginWindow.propTypes = {}
+LoginWindow.defaultProps = {}

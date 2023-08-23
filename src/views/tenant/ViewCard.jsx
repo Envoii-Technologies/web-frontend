@@ -7,8 +7,8 @@ import { AuthContext } from '../../context/AuthContextProvider';
 import {
     LoadingIndicator,
     PageContent,
-    PageHeader,
 } from '../../components/shared';
+import { Button, PageHeader } from '../../components';
 import { CardEditor } from '../../components/tenant/CardEditor/CardEditor';
 import { CardEditorContextProvider } from '../../context/CardEditorContext';
 
@@ -43,12 +43,10 @@ export const ViewCard = () => {
     } else if (authContext.hasRole('app_editor')) {
         return (
             <>
-                <PageHeader
-                    title="Karten"
-                    subtitle={cardInfo.title}
-                    onCancel={() => navigate(`/${authContext.tenant}/cards`)}
-                    onCancelTitle="Zurück"
-                />
+                <PageHeader hasBackground title="Karten" subtitle={cardInfo.title} onBack={() => navigate(`/${authContext.tenant}/cards`)}>
+                        <Button label="Zurück" onClick={() => navigate(`/${authContext.tenant}/cards`)}/>
+                        <Button type="primary" label="Speichern"/>
+                </PageHeader>
 
                 <PageContent hasWrapper={false}>
                     {isLoading ? (
@@ -75,16 +73,4 @@ export const ViewCard = () => {
             </>
         );
     }
-
-    // if (!authContext.isAuthenticated) {
-    //     return <LoadingIndicator />;
-    // } else if (!authContext.hasRole('app_admin')) {
-    //     return <>NO ACCESS</>;
-    // } else {
-    //     return (
-    //         <>
-    //             <h1>Card</h1>
-    //         </>
-    //     );
-    // }
 };

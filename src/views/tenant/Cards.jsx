@@ -7,7 +7,9 @@ import DataGrid, { SelectColumn } from 'react-data-grid';
 
 import { AuthContext } from '../../context/AuthContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoadingIndicator, PageContent, PageHeader, SearchBar } from '../../components/shared';
+import { LoadingIndicator, PageContent, SearchBar } from '../../components/shared';
+
+import { Button, PageHeader } from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFileCircleXmark,
@@ -126,7 +128,11 @@ export const Cards = () => {
     } else {
         return (
             <>
-                <PageHeader title="Karten" onAction={() => navigate(`/${authContext.tenant}/cards/create`)} onActionTitle="Neue Karte"/>
+                <PageHeader
+                    title="Karten"
+                >
+                    <Button label="Neue Karte" type="primary" onClick={() => navigate(`/${authContext.tenant}/cards/create`)} />
+                </PageHeader>
 
                 <PageContent>
                 {isLoading ? (
