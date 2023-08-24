@@ -1,13 +1,16 @@
+@use './../../styles-global.scss' as *;
+
 .PageContent
 {
     position: relative;
     flex-grow: 1;
     justify-content: center;
     display: flex;
+    overflow-y: scroll;
 
     &__wrapper
     {
         padding: 2em;
-        width: 800px;
+        width: $page-width-default;
     }
 }

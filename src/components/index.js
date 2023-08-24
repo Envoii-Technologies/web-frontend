@@ -4,6 +4,10 @@ export { CenterWrapper } from './CenterWrapper/CenterWrapper';
 export { FormError } from './FormError/FormError';
 export { FormInput } from './FormInput/FormInput';
 export { FormButton } from './FormButton/FormButton';
+export { FormTextarea } from './FormTextarea/FormTextarea';
 export { Button } from './Button/Button';
 export { PageHeader } from './PageHeader/PageHeader';
-export { SearchBar } from './SearchBar/SearchBar'
+export { SearchBar } from './SearchBar/SearchBar';
+export { ModalWindow } from './ModalWindow/ModalWindow';
+export { PageContent } from './PageContent/PageContent';
+export { Table } from './Table/Table';

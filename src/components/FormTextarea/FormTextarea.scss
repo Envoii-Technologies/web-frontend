@@ -1,0 +1,84 @@
+@use './../../styles-global.scss' as *;
+
+.FormTextarea
+{
+    // background: red;
+    border-radius: $border-radius-default;
+    margin: 1rem 0;
+    border: $area-edge-border;
+    overflow: hidden;
+
+    &.success {
+        border-color: rgba($success-color, 0.5);
+
+        .FormTextarea__metaInput {
+            color: $success-color;
+            background: rgba($success-color, 0.25);
+        }
+
+        .FormTextarea__metaLabel {
+            border-left: 1px solid rgba($success-color, 0.5);
+        }
+    }
+
+    &.error {
+        border-color: rgba($error-color, 0.5);
+
+        .FormTextarea__metaInput {
+            color: $error-color;
+            background: rgba($error-color, 0.25);
+        }
+
+        .FormTextarea__metaLabel {
+            border-left: 1px solid rgba($error-color, 0.5);
+        }
+    }
+
+    &__wrapper
+    {
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+    }
+
+    &__metaInput {
+        flex-grow: 1;
+        border: none;
+        padding: 1rem 1rem;
+        color: $font-color-default;
+        font-size: $font-size-small;
+        font-family: 'Roboto', sans-serif;
+
+        &:focus {
+            background: rgba($default-color-light, 0.15);
+            border: none;
+            outline: none;
+        }
+
+        &.resizable
+        {
+            resize: vertical !important;
+        }
+
+        &.unresizable
+        {
+            resize: none !important;
+        }
+    }
+
+    &__metaLabel {
+        min-width: 8rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 1rem 1rem;
+        font-size: $font-size-small;
+        border-left: 1px solid rgba($default-color-light, 0.1);
+        background: rgba($default-color-light, 0.25);
+
+        &.right
+        {
+            justify-content: flex-end;
+        }
+    }
+}

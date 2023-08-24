@@ -9,10 +9,9 @@ import { AuthContext } from '../../context/AuthContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import {
     LoadingIndicator,
-    PageContent,
 } from '../../components/shared';
 
-import { Button, PageHeader, SearchBar } from '../../components';
+import { PageContent, Button, PageHeader, SearchBar } from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFileCircleXmark,
@@ -138,7 +137,7 @@ export const Cards = () => {
     } else {
         return (
             <>
-                <PageHeader title="Karten">
+                <PageHeader title="Karten" hasBackground={false}>
                     <SearchBar
                         onSearchSubmit={(term) => onSearchSubmit(term)}
                     />

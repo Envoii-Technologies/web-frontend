@@ -27,15 +27,15 @@ export const LoginWindow = () => {
                     if (success) {
                         navigate('/' + tenant);
                     } else {
-                        setErrorMessage('Kein Gültiger Kunde.');
+                        setErrorMessage('Kein Gültiges Unternehmen.');
                     }
                 })
                 .catch((err) => {
                     console.error(err.message);
-                    setErrorMessage('Kunde existiert nicht.');
+                    setErrorMessage('Unternehmen existiert nicht.');
                 });
         } else {
-            setErrorMessage('Bitte gültigen Kunden eingeben.');
+            setErrorMessage('Bitte gültiges Unternehmen eingeben.');
         }
     };
     
@@ -74,7 +74,7 @@ export const LoginWindow = () => {
                 <FormInput
                     autoFocus
                     type="text"
-                    placeholder="Ihr Unternehmensname"
+                    placeholder="Ihre Unternehmens-Domain"
                     metaLabel=".envoii.de"
                     metaPosition="right"
                     onFocus={() => handleTenantFocus()}

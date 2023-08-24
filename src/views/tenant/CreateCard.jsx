@@ -3,18 +3,22 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 import { AuthContext } from '../../context/AuthContextProvider';
+import { LoadingIndicator } from '../../components/shared';
 import {
-    LoadingIndicator,
     PageContent,
+    Button,
     PageHeader,
-} from '../../components/shared';
+    FormError,
+    FormInput,
+    FormTextarea,
+} from '../../components';
 
 export const CreateCard = () => {
     const [documentInfo, setDocumentInfo] = useState({
         title: '',
         description: '',
     });
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
 
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
@@ -23,9 +27,13 @@ export const CreateCard = () => {
         e.preventDefault();
 
         if (!documentInfo.title) {
-            setErrorMessage('');
-            setErrorMessage('Titel muss angegeben werden');
+            setErrorMessage({ type: '', message: '' });
+            setErrorMessage({
+                type: 'title',
+                message: 'Titel muss angegeben werden',
+            });
         } else {
+            console.log(documentInfo)
             axios
                 .post(
                     `http://localhost:4001/api/tenants/${authContext.tenant}/cards`,
@@ -42,7 +50,7 @@ export const CreateCard = () => {
                         );
                     } else if (!res.data.success) {
                         console.log(res.data);
-                        setErrorMessage('');
+                        setErrorMessage({ type: '', message: '' });
                         // setErrorMessage(res.data.error.errorMessage);
                     }
                 })
@@ -54,6 +62,8 @@ export const CreateCard = () => {
 
     const handleChangeDocumentInfo = (e) => {
         const value = e.target.value;
+
+        setErrorMessage({ type: '', message: '' });
 
         setDocumentInfo({
             ...documentInfo,
@@ -69,50 +79,45 @@ export const CreateCard = () => {
         return (
             <>
                 <PageHeader
+                    hasBackground={false}
                     title="Karten"
                     subtitle="Neue Karte"
-                    onAction={(e) => handleCreateCard(e)}
-                    onActionTitle="Speichern"
-                    onCancel={() => navigate(`/${authContext.tenant}/cards`)}
-                    onCancelTitle="Zurück"
-                />
+                    onBack={() => navigate(`/${authContext.tenant}/cards`)}
+                >
+                    <Button
+                        label="Zurück"
+                        onClick={() => navigate(`/${authContext.tenant}/cards`)}
+                    />
+                    <Button
+                        type="primary"
+                        label="Weiter"
+                        onClick={(e) => handleCreateCard(e)}
+                    />
+                </PageHeader>
 
                 <PageContent>
-                    <form>
-                        <label>
-                            Titel
-                            <br />
-                            <input
-                                type="text"
-                                name="title"
-                                value={documentInfo.title}
-                                onChange={(e) => handleChangeDocumentInfo(e)}
-                            />
-                        </label>
+                    {errorMessage?.message && (
+                        <FormError
+                            type="error"
+                            message={errorMessage.message}
+                        />
+                    )}
 
-                        <br />
-                        <br />
+                    <FormInput
+                        status={errorMessage.type === 'title' ? 'error' : ''}
+                        placeholder="Titel*"
+                        autoFocus={true}
+                        name="title"
+                        value={documentInfo.title}
+                        onChange={(e) => handleChangeDocumentInfo(e)}
+                    />
 
-                        <label>
-                            Notizen
-                            <br />
-                            <textarea
-                                name="description" 
-                                rows={4} cols={40}
-                                defaultValue={documentInfo.description}
-                                onChange={(e) => handleChangeDocumentInfo(e)}
-                                />
-                        </label>
-
-                        <br />
-                        <br />
-
-                        {errorMessage && (
-                            <div className="">
-                                <p className="">{errorMessage}</p>
-                            </div>
-                        )}
-                    </form>
+                    <FormTextarea
+                        placeholder="Notizen"
+                        name="description"
+                        defaultValue={documentInfo.description}
+                        onChange={(e) => handleChangeDocumentInfo(e)}
+                    />
                 </PageContent>
             </>
         );

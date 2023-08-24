@@ -1,34 +1,37 @@
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import './FormInput.scss';
+import './FormTextarea.scss';
 
-export const FormInput = ({
+export const FormTextarea = ({
     autoFocus,
-    type,
     status,
     placeholder,
     metaLabel,
     metaPosition,
+    isResizable,
     ...props
 }) => {
     return (
         <>
-            <div className={`FormInput ${status ? status : ''}`}>
-                <div className="FormInput__wrapper">
+            <div className={`FormTextarea ${status ? status : ''}`}>
+                <div className="FormTextarea__wrapper">
                     {metaLabel && metaPosition === 'left' && (
-                        <div className="FormInput__metaLabel">
+                        <div className="FormTextarea__metaLabel">
                             <span>{metaLabel}</span>
                         </div>
                     )}
-                    <input
+                    <textarea
                         autoFocus={autoFocus}
-                        className="FormInput__metaInput"
-                        type={type}
+                        className={`FormTextarea__metaInput ${ isResizable ? 'resizable' : 'unresizable'}`}
+                        name=""
+                        id=""
+                        rows="4"
                         placeholder={placeholder}
                         {...props}
-                    />
+                    ></textarea>
                     {metaLabel && metaPosition === 'right' && (
-                        <div className="FormInput__metaLabel">
+                        <div className="FormTextarea__metaLabel right">
                             <span>{metaLabel}</span>
                         </div>
                     )}
@@ -38,20 +41,20 @@ export const FormInput = ({
     );
 };
 
-FormInput.propTypes = {
+FormTextarea.propTypes = {
     autoFocus: PropTypes.bool,
-    type: PropTypes.oneOf(['text', 'password']),
     status: PropTypes.oneOf(["", 'success', 'error']),
     placeholder: PropTypes.string,
     metaLabel: PropTypes.string,
     metaPosition: PropTypes.oneOf(['left', 'right']),
+    isResizable: PropTypes.bool
 };
 
-FormInput.defaultProps = {
+FormTextarea.defaultProps = {
     autoFocus: false,
-    type: 'text',
     status: "",
     placeholder: '',
     metaLabel: '',
     metaPosition: 'left',
+    isResizable: false
 };

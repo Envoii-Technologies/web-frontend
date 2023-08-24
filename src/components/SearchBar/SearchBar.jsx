@@ -34,7 +34,6 @@ export const SearchBar = ({ onSearchSubmit }) => {
     );
 };
 
-
 SearchBar.propTypes = {
     onSearchSubmit: PropTypes.func,
 };
@@ -42,4 +41,3 @@ SearchBar.propTypes = {
 SearchBar.defaultProps = {
     onSearchSubmit: undefined,
 };
-

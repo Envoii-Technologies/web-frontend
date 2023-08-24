@@ -26,36 +26,11 @@ $default-color-light: #b0b0b0;
 
 $border-radius-default: 0.25rem;
 
+$page-width-default: 800px;
+
 @font-face {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 100;
-    src: url('./fonts/Roboto-Regular.ttf') format('truetype');
-}
-
-.App
-{
-    color: $font-color-default;
-    font-size: $font-size-small;
-    font-family: 'Roboto', sans-serif;
-
-    a
-    {
-        text-decoration: underline;
-        color: $font-color-default;
-        font-weight: bold;
-        
-        &:hover
-        {
-            text-decoration: none;
-        }
-        
-        &:focus
-        {
-            text-decoration: none;
-            outline: none;
-            border-radius: $border-radius-default;
-            background: rgba(#203257, 0.25);
-        }
-    }
+    src: url('/fonts/Roboto-Regular.ttf') format('truetype');
 }

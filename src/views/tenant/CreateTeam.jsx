@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator, PageContent, PageHeader } from '../../components/shared';
+import { LoadingIndicator } from '../../components/shared';
+import { PageContent, PageHeader } from '../../components/';
 
 export const CreateTeam = () => {
     const [isLoading, setIsLoading] = useState(true);

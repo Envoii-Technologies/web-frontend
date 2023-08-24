@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator, PageContent, PageHeader } from '../../components/shared';
+import { LoadingIndicator } from '../../components/shared';
+import { PageContent, PageHeader } from '../../components/';
 
 export const Dashboard = () => {
     const authContext = useContext(AuthContext);
@@ -10,7 +11,7 @@ export const Dashboard = () => {
     } else {
         return (
             <>
-                <PageHeader title="Dashboard"/>
+                <PageHeader title="Dashboard" hasBackground={false}/>
 
                 <PageContent>
                     Dashboard inhalt...

@@ -24,8 +24,11 @@
     }
 
     &.default {
-        border: 2px solid rgba($default-color-light, 0.75);
-        color: rgba($default-color-light, 1);
+        border: 2px solid rgba($default-color-light, 0.65);
+        color: rgba(black, 0.55);
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &:hover,
         &:focus {
@@ -44,6 +47,21 @@
         &:focus {
             outline: none;
             background: $primary-color;
+        }
+    }
+
+    &.secondary {
+        background: 2px solid rgba($default-color-light, 0.65);
+        color: rgba(black, 0.55);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover,
+        &:focus {
+            outline: none;
+            background:rgba(239, 239, 239, 1);
+            color: black;
         }
     }
 

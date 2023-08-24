@@ -1,14 +1,16 @@
+@use './../../styles-global.scss' as *;
+
 .modalWrapper {
     position: fixed;
     left: 0;
-    top: -5em;
+    top: -10em;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba($font-color-default, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 10000;
 }
 
 .ModalWindow {
@@ -27,7 +29,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-        border-bottom: 1px solid #eee;
+        // border-bottom: 1px solid #eee;
 
         &__title
         {
@@ -59,28 +61,9 @@
 
     &__footer
     {
+        max-height: 2rem;
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
         gap: 0.5em;
-
-        button
-        {
-            padding: 0.5em;
-            border-radius: 0.5em;
-            border: none;
-            color: white;
-            background: #3cafe2;
-            cursor: pointer;
-
-            &.success
-            {
-                background: limegreen;
-            }
-
-            &.error
-            {
-                background: crimson;
-            }
-        }
     }
 }

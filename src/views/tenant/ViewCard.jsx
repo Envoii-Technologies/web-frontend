@@ -6,9 +6,8 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContextProvider';
 import {
     LoadingIndicator,
-    PageContent,
 } from '../../components/shared';
-import { Button, PageHeader } from '../../components';
+import { PageContent, Button, PageHeader } from '../../components';
 import { CardEditor } from '../../components/tenant/CardEditor/CardEditor';
 import { CardEditorContextProvider } from '../../context/CardEditorContext';
 
