@@ -11,7 +11,7 @@ export const Dashboard = () => {
     } else {
         return (
             <>
-                <PageHeader title="Dashboard" hasBackground={false}/>
+                <PageHeader title="Dashboard" hasBackground={false} helpLink="/"/>
 
                 <PageContent>
                     Dashboard inhalt...

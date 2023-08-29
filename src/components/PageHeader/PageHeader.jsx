@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types';
 
+import { Button } from '../Button/Button';
+
+import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+
 import './PageHeader.scss';
 
 export const PageHeader = ({
@@ -8,6 +12,7 @@ export const PageHeader = ({
     onBack,
     children,
     hasBackground,
+    helpLink,
 }) => {
     return (
         <>
@@ -39,6 +44,17 @@ export const PageHeader = ({
                     <div className="PageHeader__menu">
                         <div className="PageHeader__menu__content">
                             {children}
+
+                    {
+                        helpLink &&
+                        <Button
+                            size="small"
+                            fluid={false}
+                            icon={faCircleQuestion}
+                            type="success"
+                        />
+                    }
+                    
                         </div>
                     </div>
                 </div>
@@ -56,6 +72,7 @@ PageHeader.propTypes = {
         PropTypes.element,
     ]),
     hasBackground: PropTypes.bool,
+    helpLink: PropTypes.string,
 };
 
 PageHeader.defaultProps = {
@@ -64,4 +81,5 @@ PageHeader.defaultProps = {
     onBack: undefined,
     children: undefined,
     hasBackground: true,
+    helpLink: undefined,
 };

@@ -7,15 +7,20 @@ import DataGrid, { SelectColumn } from 'react-data-grid';
 
 import { AuthContext } from '../../context/AuthContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-    LoadingIndicator,
-} from '../../components/shared';
+import { LoadingIndicator } from '../../components/shared';
 
-import { PageContent, Button, PageHeader, SearchBar } from '../../components';
+import {
+    PageContent,
+    Button,
+    PageHeader,
+    SearchBar,
+    Table,
+} from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFileCircleXmark,
     faFileSignature,
+    faCircleQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 
 import 'react-data-grid/lib/styles.css';
@@ -50,7 +55,10 @@ export const Cards = () => {
             name: 'Titel',
             renderCell({ row, onRowChange, tabIndex }) {
                 return (
-                    <Link to={`/${authContext.tenant}/cards/${row._id}`}>
+                    <Link
+                        className="dataTable__row__cell__link"
+                        to={`/${authContext.tenant}/cards/${row._id}`}
+                    >
                         {row.title}
                     </Link>
                 );
@@ -60,6 +68,7 @@ export const Cards = () => {
         {
             key: 'updated_at',
             name: 'Bearbeitet',
+            cellClass: 'dataTable__row__cell',
             renderCell({ row, onRowChange, tabIndex }) {
                 return (
                     <>
@@ -72,26 +81,43 @@ export const Cards = () => {
         {
             key: 'released',
             name: 'Info',
+            cellClass: 'dataTable__row__cell',
             renderCell({ row, onRowChange, tabIndex }) {
-                return <>{row.released ? 'Online' : 'Entwurf'}</>;
+                // return <>{row.released ? <span className=''></span> : <span className='dataTable__row__cell__info__cirle'></span>}</>;
+                return (
+                    <>
+                        <div className="dataTable__row__cell__info__wrapper">
+                            <span
+                                className={`dataTable__row__cell__info__circle ${
+                                    row.released ? 'released' : 'unreleased'
+                                }`}
+                            ></span>
+                        </div>
+                    </>
+                );
             },
         },
         {
             key: 'action',
             name: 'Aktion',
+            cellClass: 'dataTable__row__cell',
             renderCell({ row, onRowChange, tabIndex }) {
                 return (
-                    <>
-                        <button>
-                            <FontAwesomeIcon icon={faFileSignature} />
-                        </button>
-                        <button
+                    <div className="dataTable__row__cell__info__wrapper">
+                        <Button
+                            size="small"
+                            fluid={false}
+                            icon={faFileSignature}
+                            type="primary"
+                        />
+                        <Button
+                            size="small"
+                            fluid={false}
+                            icon={faFileCircleXmark}
+                            type="error"
                             onClick={(e) => deleteSelectedCard(e, row._id)}
-                            disabled={row.username === 'admin'}
-                        >
-                            <FontAwesomeIcon icon={faFileCircleXmark} />
-                        </button>
-                    </>
+                        />
+                    </div>
                 );
             },
         },
@@ -137,7 +163,7 @@ export const Cards = () => {
     } else {
         return (
             <>
-                <PageHeader title="Karten" hasBackground={false}>
+                <PageHeader title="Karten" hasBackground={false} helpLink="/">
                     <SearchBar
                         onSearchSubmit={(term) => onSearchSubmit(term)}
                     />
@@ -150,16 +176,22 @@ export const Cards = () => {
                     />
                 </PageHeader>
 
-                <PageContent>
+                <PageContent isFluid={true}>
                     {isLoading ? (
                         <>...loading</>
                     ) : (
                         <>
+                            <Table />
                             {cardList.length === 0 ? (
                                 <p>Keine Karten vorhanden...</p>
                             ) : (
                                 <>
                                     <DataGrid
+                                        className="dataTable"
+                                        rowClass={(row, index) =>
+                                            // row.id.includes('7') || index === 0 ? "datarow" : undefined
+                                            'dataTable__row'
+                                        }
                                         columns={columns}
                                         rows={cardList.filter(
                                             (user) => user.username !== 'envoii'

@@ -33,7 +33,7 @@ export const CreateCard = () => {
                 message: 'Titel muss angegeben werden',
             });
         } else {
-            console.log(documentInfo)
+            console.log(documentInfo);
             axios
                 .post(
                     `http://localhost:4001/api/tenants/${authContext.tenant}/cards`,
@@ -83,11 +83,8 @@ export const CreateCard = () => {
                     title="Karten"
                     subtitle="Neue Karte"
                     onBack={() => navigate(`/${authContext.tenant}/cards`)}
+                    helpLink="/"
                 >
-                    <Button
-                        label="Zurück"
-                        onClick={() => navigate(`/${authContext.tenant}/cards`)}
-                    />
                     <Button
                         type="primary"
                         label="Weiter"

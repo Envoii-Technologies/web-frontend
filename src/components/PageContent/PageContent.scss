@@ -12,5 +12,10 @@
     {
         padding: 2em;
         width: $page-width-default;
+
+        &.fluid
+        {
+            width: 100%;
+        }
     }
 }

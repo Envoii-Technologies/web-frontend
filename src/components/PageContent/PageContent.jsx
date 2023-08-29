@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 
 import './PageContent.scss';
 
-export const PageContent = ({ children, hasWrapper }) => {
+export const PageContent = ({ children, hasWrapper, isFluid }) => {
     return (
         <div className="PageContent">
             {hasWrapper ? (
-                <div className="PageContent__wrapper">{children}</div>
+                <div className={`PageContent__wrapper ${isFluid ? 'fluid' : ''}`}>{children}</div>
             ) : (
                 <>{ children }</>
             )}
@@ -20,9 +20,11 @@ PageContent.propTypes = {
         PropTypes.element,
     ]),
     hasWrapper: PropTypes.bool,
+    isFluid: PropTypes.bool,
 };
 
 PageContent.defaultProps = {
     children: undefined,
     hasWrapper: true,
+    isFluid: false,
 };

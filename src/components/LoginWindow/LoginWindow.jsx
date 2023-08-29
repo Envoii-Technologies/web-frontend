@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import { FormError, FormInput, FormButton } from '../';
+import { FormError, FormInput, Button, FormButton } from '../';
 
 import { useDocumentTitle } from './../../hooks';
 
@@ -82,10 +82,16 @@ export const LoginWindow = () => {
                     onKeyDown={(e) => handleKeyDown(e)}
                 />
 
-                <FormButton
+                <br />
+
+                <Button
                     label="Weiter"
+                    type="primary"
+                    size="large"
                     onClick={() => handleTenantCheckIn()}
                 />
+
+                <br />
 
                 <footer className="LoginWindow__footer">
                     <p className="LoginWindow__footer__info">

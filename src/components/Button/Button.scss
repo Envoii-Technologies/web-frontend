@@ -2,21 +2,54 @@
 
 .Button {
     border-radius: $border-radius-default;
-    flex-grow: 1;
+    
     border: none;
-    min-width: 8rem;
+    // min-width: 8rem;
     cursor: pointer;
     font-weight: 800;
     font-size: $font-size-small;
 
+    &.fluid
+    {
+        flex-grow: 1;
+    }
+
     &__wrapper {
         display: flex;
-        align-items: stretch;
+        align-items: center;
         justify-content: stretch;
-        height: 2rem;
+
+        &.small
+        {
+            height: 1.5rem;
+            padding: 0 0.25rem;
+            min-width: 1.5rem;
+        }
+
+        &.medium
+        {
+            height: 2rem;
+            padding: 0 0.5rem;
+            min-width: 2rem;
+        }
+
+        &.large
+        {
+            height: 2.5rem;
+            padding: 0 1rem;
+            min-width: 2.5rem;
+        }
     }
 
     &__label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    &__icon__wrapper
+    {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -65,7 +98,7 @@
         }
     }
 
-    &.accept {
+    &.success {
         background: rgba($success-color, 0.75);
         color: white;
 
@@ -76,7 +109,18 @@
         }
     }
 
-    &.cancel {
+    &.warning {
+        background: rgba($warning-color, 0.75);
+        color: white;
+
+        &:hover,
+        &:focus {
+            background: $warning-color;
+            outline: none;
+        }
+    }
+
+    &.error {
         background: rgba($error-color, 0.75);
         color: white;
 

@@ -1,6 +1,87 @@
 @use './../../styles-global.scss' as *;
 
-.Table
-{
-    
+.Table {
+    display: flex;
+    flex-direction: column;
+
+    &__header {
+        background: white;
+        border-top-left-radius: $border-radius-default;
+        border-top-right-radius: $border-radius-default;
+        border-bottom: $area-edge-border;
+        height: 3rem;
+    }
+}
+
+.dataTable {
+    border: none;
+    background: none;
+
+    .rdg-checkbox-label {
+        .checkbox {
+        }
+        .rdg-checkbox {
+            border-radius: 0.25rem;
+            border: 2px solid $font-color-primary;
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+    }
+
+    &__row {
+        .rdg-cell {
+            background: white !important;
+            color: $font-color-primary !important;
+            border-bottom: $area-edge-border !important;
+        }
+
+        &__cell__info__wrapper
+        {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            gap: 0.25rem;
+
+            .dataTable__row__cell__info__circle
+            {
+                display: block;
+                width: 1.5rem;
+                height: 1.5rem;
+                border-radius: 50%;
+                
+                &.released
+                {
+                    background: $success-color;
+                }
+
+                &.unreleased
+                {
+                    background: $warning-color;
+                }
+            }
+        }
+
+        &__cell__link
+        {
+            text-decoration: none !important;
+            opacity: 0.75;
+
+            &:focus,
+            &:hover
+            {
+                opacity: 1;
+            }
+        }        
+    }
+
+    .rdg-cell {
+        background: white;
+        border: none;
+        color: $default-color-light;
+        font-size: $font-size-small;
+        border-bottom: $area-edge-border !important;
+        font-weight: 400;
+        padding: 0 1rem;
+        box-shadow: none;
+    }
 }

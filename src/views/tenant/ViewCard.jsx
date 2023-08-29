@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { AuthContext } from '../../context/AuthContextProvider';
-import {
-    LoadingIndicator,
-} from '../../components/shared';
+import { LoadingIndicator } from '../../components/shared';
 import { PageContent, Button, PageHeader } from '../../components';
 import { CardEditor } from '../../components/tenant/CardEditor/CardEditor';
 import { CardEditorContextProvider } from '../../context/CardEditorContext';
@@ -42,9 +40,14 @@ export const ViewCard = () => {
     } else if (authContext.hasRole('app_editor')) {
         return (
             <>
-                <PageHeader hasBackground title="Karten" subtitle={cardInfo.title} onBack={() => navigate(`/${authContext.tenant}/cards`)}>
-                        <Button label="Zurück" onClick={() => navigate(`/${authContext.tenant}/cards`)}/>
-                        <Button type="primary" label="Speichern"/>
+                <PageHeader
+                    hasBackground
+                    title="Karten"
+                    subtitle={cardInfo.title}
+                    onBack={() => navigate(`/${authContext.tenant}/cards`)}
+                    helpLink="/"
+                >
+                    <Button type="primary" label="Speichern" />
                 </PageHeader>
 
                 <PageContent hasWrapper={false}>
@@ -66,6 +69,7 @@ export const ViewCard = () => {
                     subtitle={cardInfo.title}
                     onCancel={() => navigate(`/${authContext.tenant}/cards`)}
                     onCancelTitle="Zurück"
+                    helpLink="/"
                 />
 
                 <PageContent>{isLoading ? <>loading...</> : <></>}</PageContent>

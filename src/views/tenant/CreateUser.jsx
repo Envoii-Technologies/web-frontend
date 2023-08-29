@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContextProvider';
 import generateInitPassword from '../../helpers/generateInitPassword';
 import { LoadingIndicator } from '../../components/shared';
 import {
-    PageContent, 
+    PageContent,
     Button,
     FormError,
     FormInput,
@@ -129,17 +129,13 @@ export const CreateUser = () => {
                         navigate(`/${authContext.tenant}/settings/users`)
                     }
                     hasBackground={false}
+                    helpLink="/"
                 >
-                    <Button
-                        label="Zurück"
-                        onClick={() =>
-                            navigate(`/${authContext.tenant}/settings/users`)
-                        }
-                    />
                     <Button
                         type="primary"
                         label="Speichern"
                         onClick={(e) => handleCreateUser(e)}
+                        helpLink="/"
                     />
                 </PageHeader>
 
@@ -212,43 +208,43 @@ export const CreateUser = () => {
                         onChange={handleChangeUserInfo}
                     />
 
+                    <label>
+                        Rollen
+                        <br />
                         <label>
-                            Rollen
-                            <br />
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    onChange={(e) => handleChangeRole(e)}
-                                    name="admin"
-                                />{' '}
-                                Admin <br />
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    onChange={(e) => handleChangeRole(e)}
-                                    name="manager"
-                                />{' '}
-                                Manager <br />
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    onChange={(e) => handleChangeRole(e)}
-                                    name="editor"
-                                />{' '}
-                                Editor <br />
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    onChange={(e) => handleChangeRole(e)}
-                                    name="user"
-                                    defaultChecked={true}
-                                />{' '}
-                                Benutzer <br />
-                            </label>
+                            <input
+                                type="checkbox"
+                                onChange={(e) => handleChangeRole(e)}
+                                name="admin"
+                            />{' '}
+                            Admin <br />
                         </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={(e) => handleChangeRole(e)}
+                                name="manager"
+                            />{' '}
+                            Manager <br />
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={(e) => handleChangeRole(e)}
+                                name="editor"
+                            />{' '}
+                            Editor <br />
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={(e) => handleChangeRole(e)}
+                                name="user"
+                                defaultChecked={true}
+                            />{' '}
+                            Benutzer <br />
+                        </label>
+                    </label>
                 </PageContent>
             </>
         );

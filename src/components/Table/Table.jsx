@@ -6,7 +6,11 @@ import './Table.scss';
 export const Table = () => {
     return (
         <>
-            <div className="Table"></div>
+            <div className="Table">
+                <header className="Table__header">
+                    
+                </header>
+            </div>
         </>
     );
 };
