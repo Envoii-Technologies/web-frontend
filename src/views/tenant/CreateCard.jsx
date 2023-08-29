@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
+import { useDocumentTitle } from '../../hooks';
+
 import { AuthContext } from '../../context/AuthContextProvider';
 import { LoadingIndicator } from '../../components/shared';
 import {
@@ -14,6 +16,8 @@ import {
 } from '../../components';
 
 export const CreateCard = () => {
+    useDocumentTitle("Neue Karte erstellen");
+
     const [documentInfo, setDocumentInfo] = useState({
         title: '',
         description: '',

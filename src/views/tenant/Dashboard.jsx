@@ -3,7 +3,11 @@ import { AuthContext } from '../../context/AuthContextProvider';
 import { LoadingIndicator } from '../../components/shared';
 import { PageContent, PageHeader } from '../../components/';
 
-export const Dashboard = () => {
+import { useDocumentTitle } from '../../hooks';
+
+export const Dashboard = () =>
+{
+    useDocumentTitle("Dashboard");
     const authContext = useContext(AuthContext);
 
     if (!authContext.isAuthenticated) {

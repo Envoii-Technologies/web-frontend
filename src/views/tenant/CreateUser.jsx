@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { useDocumentTitle } from '../../hooks';
+
 import { AuthContext } from '../../context/AuthContextProvider';
 import generateInitPassword from '../../helpers/generateInitPassword';
 import { LoadingIndicator } from '../../components/shared';
@@ -13,7 +15,10 @@ import {
     PageHeader,
 } from '../../components';
 
-export const CreateUser = () => {
+export const CreateUser = () =>
+{
+    useDocumentTitle("Neuen Benutzer erstellen");
+
     const [checkBoxAmount, setCheckBoxAmount] = useState(1);
     const [userInfo, setUserInfo] = useState({
         username: '',

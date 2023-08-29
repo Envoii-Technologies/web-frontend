@@ -3,13 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import { useDocumentTitle } from '../../hooks';
+
 import { AuthContext } from '../../context/AuthContextProvider';
 import { LoadingIndicator } from '../../components/shared';
 import { PageContent, Button, PageHeader } from '../../components';
 import { CardEditor } from '../../components/tenant/CardEditor/CardEditor';
 import { CardEditorContextProvider } from '../../context/CardEditorContext';
 
-export const ViewCard = () => {
+export const ViewCard = () =>
+{
+    useDocumentTitle("Kartendetails");
+    
     const [isLoading, setIsLoading] = useState(true);
     const [cardInfo, setCardInfo] = useState([]);
 
@@ -26,6 +31,9 @@ export const ViewCard = () => {
             )
             .then((res) => {
                 setCardInfo(res.data.card);
+
+                if(res.data.card) document.title = res.data.card.title;
+
                 setIsLoading(false);
             })
             .catch((err) => console.log(err.message));

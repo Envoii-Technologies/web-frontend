@@ -2,11 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { useDocumentTitle } from '../../hooks';
+
 import { AuthContext } from '../../context/AuthContextProvider';
 import { LoadingIndicator } from '../../components/shared';
 import { PageContent, PageHeader } from '../../components/';
 
-export const CreateTeam = () => {
+export const CreateTeam = () =>
+{
+    useDocumentTitle("Neues Team erstellen");
+
     const [isLoading, setIsLoading] = useState(true);
     const [teamInfo, setTeamInfo] = useState({
         name: '',

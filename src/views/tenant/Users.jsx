@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import { useDocumentTitle } from '../../hooks';
+
 import DataGrid, { SelectColumn } from 'react-data-grid';
 import { AuthContext } from '../../context/AuthContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +14,10 @@ import { PageContent, Button, PageHeader } from '../../components';
 
 import 'react-data-grid/lib/styles.css';
 
-export const Users = () => {
+export const Users = () =>
+{
+    useDocumentTitle("Benutzer");
+
     const [isLoading, setIsLoading] = useState(true);
     const [userList, setUserList] = useState([]);
 

@@ -9,6 +9,8 @@ import { AuthContext } from '../../context/AuthContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import { LoadingIndicator } from '../../components/shared';
 
+import { useDocumentTitle } from '../../hooks';
+
 import {
     PageContent,
     Button,
@@ -25,7 +27,10 @@ import {
 
 import 'react-data-grid/lib/styles.css';
 
-export const Cards = () => {
+export const Cards = () =>
+{
+    useDocumentTitle("Karten");
+
     const [cardList, setCardList] = useState([]);
     const [oldCardList, setOldCardList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
