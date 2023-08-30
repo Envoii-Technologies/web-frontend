@@ -6,6 +6,11 @@
     border: $area-edge-border;
     overflow: hidden;
 
+    &__label
+    {
+        font-weight: bold;
+    }
+
     &.success {
         border-color: rgba($success-color, 0.5);
 

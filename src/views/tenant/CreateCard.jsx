@@ -45,6 +45,14 @@ export const CreateCard = () => {
         }
     }, [documentInfo]);
 
+    const triggerThis = () => {
+        window.onbeforeunload = confirmExit;
+        function confirmExit()
+        {
+          return "show message";
+        }
+    }
+
     const handleCreateCard = (e) => {
         e.preventDefault();
 
@@ -87,6 +95,7 @@ export const CreateCard = () => {
 
         setErrorMessage({ type: '', message: '' });
 
+        
         setDocumentInfo({
             ...documentInfo,
             [e.target.name]: value,
@@ -125,7 +134,8 @@ export const CreateCard = () => {
 
                     <FormInput
                         status={errorMessage.type === 'title' ? 'error' : ''}
-                        placeholder="Titel*"
+                        label="Titel*"
+                        placeholder="Geben Sie einen Titel ein"
                         autoFocus={true}
                         name="title"
                         value={documentInfo.title}
@@ -133,7 +143,8 @@ export const CreateCard = () => {
                     />
 
                     <FormTextarea
-                        placeholder="Notizen"
+                        label="Notizen"
+                        placeholder="Geben Sie hier optionale Notizen an."
                         name="description"
                         defaultValue={documentInfo.description}
                         onChange={(e) => handleChangeDocumentInfo(e)}

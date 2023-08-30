@@ -5,6 +5,7 @@ import './FormTextarea.scss';
 
 export const FormTextarea = ({
     autoFocus,
+    label,
     status,
     placeholder,
     metaLabel,
@@ -14,6 +15,7 @@ export const FormTextarea = ({
 }) => {
     return (
         <>
+            <label className='FormTextarea__label' htmlFor={name}>{label}</label>
             <div className={`FormTextarea ${status ? status : ''}`}>
                 <div className="FormTextarea__wrapper">
                     {metaLabel && metaPosition === 'left' && (
@@ -24,7 +26,7 @@ export const FormTextarea = ({
                     <textarea
                         autoFocus={autoFocus}
                         className={`FormTextarea__metaInput ${ isResizable ? 'resizable' : 'unresizable'}`}
-                        name=""
+                        name={name}
                         id=""
                         rows="4"
                         placeholder={placeholder}
@@ -43,7 +45,9 @@ export const FormTextarea = ({
 
 FormTextarea.propTypes = {
     autoFocus: PropTypes.bool,
+    label: PropTypes.string,
     status: PropTypes.oneOf(["", 'success', 'error']),
+    name: PropTypes.string,
     placeholder: PropTypes.string,
     metaLabel: PropTypes.string,
     metaPosition: PropTypes.oneOf(['left', 'right']),
@@ -52,9 +56,11 @@ FormTextarea.propTypes = {
 
 FormTextarea.defaultProps = {
     autoFocus: false,
+    label: undefined,
     status: "",
     placeholder: '',
     metaLabel: '',
+    name: '',
     metaPosition: 'left',
     isResizable: false
 };

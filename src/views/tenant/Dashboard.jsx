@@ -16,7 +16,7 @@ export const Dashboard = () =>
             <>
                 <PageHeader title="Dashboard" hasBackground={false} helpLink="/"/>
 
-                <PageContent>
+                <PageContent isFluid={true}>
                     Dashboard inhalt...
                 </PageContent>
             </>

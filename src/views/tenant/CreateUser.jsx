@@ -15,9 +15,8 @@ import {
     LoadingIndicator,
 } from '../../components';
 
-export const CreateUser = () =>
-{
-    useDocumentTitle("Neuen Benutzer erstellen");
+export const CreateUser = () => {
+    useDocumentTitle('Neuen Benutzer erstellen');
 
     const [checkBoxAmount, setCheckBoxAmount] = useState(1);
     const [userInfo, setUserInfo] = useState({
@@ -121,7 +120,7 @@ export const CreateUser = () =>
     };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator full/>;
+        return <LoadingIndicator full />;
     } else if (!authContext.hasRole('app_admin')) {
         return <>NO ACCESS</>;
     } else {
@@ -159,7 +158,8 @@ export const CreateUser = () =>
                                 ? 'error'
                                 : ''
                         }
-                        placeholder="Benutzername"
+                        label="Benutzername"
+                        placeholder="Geben Sie einen Benutzernamen ein"
                         name="username"
                         value={userInfo.username}
                         onChange={handleChangeUserInfo}
@@ -172,46 +172,52 @@ export const CreateUser = () =>
                                 ? 'error'
                                 : ''
                         }
-                        placeholder="E-Mail"
+                        label="E-Mail"
+                        placeholder="Geben Sie eine E-Mail Adresse ein"
                         name="email"
                         value={userInfo.email}
                         onChange={handleChangeUserInfo}
                     />
 
                     <FormInput
-                        placeholder="Vorname"
+                        label="Vorname"
+                        // placeholder="Geben Sie einen Benutzernamen ein"
                         name="firstname"
                         value={userInfo.firstname}
                         onChange={handleChangeUserInfo}
                     />
 
                     <FormInput
-                        placeholder="Nachname"
+                        label="Nachname"
+                        // placeholder="Geben Sie einen Benutzernamen ein"
                         name="lastname"
                         value={userInfo.lastname}
                         onChange={handleChangeUserInfo}
                     />
 
                     <FormInput
-                        placeholder="Berufsbezeichnung"
+                        label="Berufsbezeichnung"
+                        // placeholder="Geben Sie einen Benutzernamen ein"
                         name="jobtitle"
                         value={userInfo.jobtitle}
                         onChange={handleChangeUserInfo}
                     />
 
                     <FormInput
-                        placeholder="Personalnummer"
+                        label="Personalnummer"
+                        // placeholder="Geben Sie einen Benutzernamen ein"
                         name="personalId"
                         value={userInfo.personalId}
                         onChange={handleChangeUserInfo}
                     />
 
-                    <FormInput
-                        placeholder="Passwort"
-                        name="passwort"
-                        value={userInfo.password}
-                        onChange={handleChangeUserInfo}
-                    />
+                        <FormInput
+                            label="Passwort"
+                            // placeholder="Geben Sie einen Benutzernamen ein"
+                            name="password"
+                            value={userInfo.password}
+                            onChange={handleChangeUserInfo}
+                        />
 
                     <label>
                         Rollen

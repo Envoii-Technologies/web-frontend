@@ -69,7 +69,7 @@ export const Cards = () =>
                 );
             },
         },
-        { key: '_v', name: 'Version' },
+        { key: '__v', name: 'Version' },
         {
             key: 'updated_at',
             name: 'Bearbeitet',
