@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import { FormError, FormInput, Button, FormButton } from '../';
+import { FormError, FormInput, Button } from '../';
 
 import { useDocumentTitle } from './../../hooks';
 
