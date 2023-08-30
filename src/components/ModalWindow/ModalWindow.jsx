@@ -73,7 +73,7 @@ export const ModalWindow = ({
                         />
                         {onAccept && (
                             <Button
-                                type="accept"
+                                type="success"
                                 label={acceptText}
                                 onClick={onAccept}
                             />

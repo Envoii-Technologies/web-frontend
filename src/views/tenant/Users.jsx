@@ -9,8 +9,7 @@ import { AuthContext } from '../../context/AuthContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-import { LoadingIndicator } from '../../components/shared';
-import { PageContent, Button, PageHeader } from '../../components';
+import { PageContent, Button, PageHeader,LoadingIndicator } from '../../components';
 
 import 'react-data-grid/lib/styles.css';
 
@@ -98,7 +97,7 @@ export const Users = () =>
     };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator />;
+        return <LoadingIndicator full/>;
     } else if (!authContext.hasRole('app_admin')) {
         return <>NO ACCESS</>;
     } else {
@@ -107,6 +106,7 @@ export const Users = () =>
                 <PageHeader title="Benutzer" hasBackground={false} helpLink="/">
                     <Button
                         label="Neuer Benutzer"
+                        isLoading={isLoading}
                         type="primary"
                         onClick={() =>
                             navigate(`/${authContext.tenant}/settings/users/create`)
@@ -116,7 +116,7 @@ export const Users = () =>
 
                 <PageContent>
                     {isLoading ? (
-                        <>loading...</>
+                        <LoadingIndicator/>
                     ) : (
                         <>
                             <DataGrid

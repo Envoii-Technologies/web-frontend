@@ -5,8 +5,7 @@ import axios from 'axios';
 import { useDocumentTitle } from '../../hooks';
 
 import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator } from '../../components/shared';
-import { PageContent, PageHeader } from '../../components/';
+import { PageContent, PageHeader, LoadingIndicator} from '../../components/';
 
 export const CreateTeam = () =>
 {
@@ -94,7 +93,7 @@ export const CreateTeam = () =>
     };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator/>
+        return <LoadingIndicator full/>;
     } else if (!authContext.hasRole('app_admin')) {
         return <>NO ACCESS</>;
     } else {
@@ -104,7 +103,7 @@ export const CreateTeam = () =>
 
                 <PageContent>
                 {isLoading ? (
-                        <p>loading...</p>
+                        <LoadingIndicator/>
                     ) : (
                         <>
                             <ul>

@@ -6,13 +6,13 @@ import { useDocumentTitle } from '../../hooks';
 
 import { AuthContext } from '../../context/AuthContextProvider';
 import generateInitPassword from '../../helpers/generateInitPassword';
-import { LoadingIndicator } from '../../components/shared';
 import {
     PageContent,
     Button,
     FormError,
     FormInput,
     PageHeader,
+    LoadingIndicator,
 } from '../../components';
 
 export const CreateUser = () =>
@@ -121,7 +121,7 @@ export const CreateUser = () =>
     };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator />;
+        return <LoadingIndicator full/>;
     } else if (!authContext.hasRole('app_admin')) {
         return <>NO ACCESS</>;
     } else {

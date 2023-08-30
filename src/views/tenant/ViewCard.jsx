@@ -6,8 +6,7 @@ import axios from 'axios';
 import { useDocumentTitle } from '../../hooks';
 
 import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator } from '../../components/shared';
-import { PageContent, Button, PageHeader } from '../../components';
+import { PageContent, Button, PageHeader,LoadingIndicator } from '../../components';
 import { CardEditor } from '../../components/tenant/CardEditor/CardEditor';
 import { CardEditorContextProvider } from '../../context/CardEditorContext';
 
@@ -44,7 +43,7 @@ export const ViewCard = () =>
     }, []);
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator />;
+        return <LoadingIndicator full/>;
     } else if (authContext.hasRole('app_editor')) {
         return (
             <>

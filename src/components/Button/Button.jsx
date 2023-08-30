@@ -10,18 +10,22 @@ export const Button = ({
     size,
     fluid,
     icon,
+    isLoading,
     ...props
 }) => {
     return (
         <>
             <button
-                className={`Button ${fluid ? 'fluid' : ''} ${type}`}
+                className={`Button ${fluid ? 'fluid' : ''} ${type} ${ isLoading ? 'loading' : '' }`}
                 type="button"
                 onClick={onClick}
                 {...props}
             >
                 <div className={`Button__wrapper ${size}`}>
-                    {icon && (
+                   {
+                        !isLoading ? (
+                            <>
+                            {icon && (
                         <div className="Button__icon__wrapper">
                             <FontAwesomeIcon
                                 className="Button__icon"
@@ -30,6 +34,14 @@ export const Button = ({
                         </div>
                     )}
                     {label && <span className="Button__label">{label}</span>}
+                            </>
+                        ) : (
+                            <>
+                                <div className="Button__spinner"></div>
+                            </>
+                        )
+                   }
+                    
                 </div>
             </button>
         </>
@@ -49,6 +61,8 @@ Button.propTypes = {
     ]),
     size: PropTypes.oneOf(['small', 'medium', 'large']),
     fluid: PropTypes.bool,
+    icon: PropTypes.any,
+    isLoading: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -58,4 +72,5 @@ Button.defaultProps = {
     size: 'medium',
     fluid: true,
     icon: undefined,
+    isLoading: false,
 };

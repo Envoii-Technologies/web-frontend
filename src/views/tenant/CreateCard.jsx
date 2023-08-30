@@ -2,10 +2,9 @@ import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
-import { useDocumentTitle } from '../../hooks';
+import { useDocumentTitle, useOnPageClose } from '../../hooks';
 
 import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator } from '../../components/shared';
 import {
     PageContent,
     Button,
@@ -13,19 +12,38 @@ import {
     FormError,
     FormInput,
     FormTextarea,
+    LoadingIndicator
 } from '../../components';
 
 export const CreateCard = () => {
-    useDocumentTitle("Neue Karte erstellen");
-
+    const [ canContinue, setCanContinue ] = useState(false);
     const [documentInfo, setDocumentInfo] = useState({
         title: '',
         description: '',
     });
     const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
-
+    
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useDocumentTitle("Neue Karte erstellen");
+    useOnPageClose(canContinue);
+
+    useEffect(() => {
+        const checkedInputs = [];
+
+        checkedInputs.push(documentInfo?.title.length > 0 ? true : false);
+        checkedInputs.push(documentInfo?.description.length > 0 ? true : false);
+
+        if(checkedInputs.some(v => v === true))
+        {
+            setCanContinue(true);
+        }
+        else
+        {
+            setCanContinue(false);
+        }
+    }, [documentInfo]);
 
     const handleCreateCard = (e) => {
         e.preventDefault();
@@ -76,7 +94,7 @@ export const CreateCard = () => {
     };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator />;
+        return <LoadingIndicator full/>;
     } else if (!authContext.hasRole('app_editor')) {
         return <>NO ACCESS</>;
     } else {
@@ -93,6 +111,7 @@ export const CreateCard = () => {
                         type="primary"
                         label="Weiter"
                         onClick={(e) => handleCreateCard(e)}
+                        disabled={documentInfo.title.length < 1}
                     />
                 </PageHeader>
 

@@ -7,7 +7,6 @@ import DataGrid, { SelectColumn } from 'react-data-grid';
 
 import { AuthContext } from '../../context/AuthContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoadingIndicator } from '../../components/shared';
 
 import { useDocumentTitle } from '../../hooks';
 
@@ -17,6 +16,7 @@ import {
     PageHeader,
     SearchBar,
     Table,
+    LoadingIndicator
 } from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -162,7 +162,7 @@ export const Cards = () =>
     }, []);
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator />;
+        return <LoadingIndicator full/>;
     } else if (!authContext.hasRole('app_editor')) {
         return <>NO ACCESS</>;
     } else {
@@ -173,6 +173,7 @@ export const Cards = () =>
                         onSearchSubmit={(term) => onSearchSubmit(term)}
                     />
                     <Button
+                        isLoading={isLoading}
                         label="Neue Karte"
                         type="primary"
                         onClick={() =>
@@ -183,7 +184,7 @@ export const Cards = () =>
 
                 <PageContent isFluid={true}>
                     {isLoading ? (
-                        <>...loading</>
+                        <LoadingIndicator/>
                     ) : (
                         <>
                             <Table />

@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator } from '../../components/shared';
-import { PageContent, PageHeader } from '../../components/';
+import { PageContent, PageHeader,LoadingIndicator } from '../../components/';
 
 import { useDocumentTitle } from '../../hooks';
 
@@ -11,7 +10,7 @@ export const Dashboard = () =>
     const authContext = useContext(AuthContext);
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator/>
+        return <LoadingIndicator full/>;
     } else {
         return (
             <>
