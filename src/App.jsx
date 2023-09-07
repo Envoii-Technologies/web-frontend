@@ -18,7 +18,31 @@ import {
 } from './views/tenant/';
 import { AdminLayout, TenantLayout, LoginLayout } from './layouts';
 
+import { configure } from 'axios-hooks';
+
+import axios from 'axios';
 import './style.scss';
+
+const axiosConfig = axios.create({
+    // baseURL: 'https://reqres.in/api'
+});
+
+axiosConfig.interceptors.request.use(
+    (config) => {
+        const token = window.accessToken ? window.accessToken : 'dummy_token';
+        config.headers['Authorization'] = 'Bearer ' + token;
+        return config;
+    },
+    (error) => {
+        Promise.reject(error);
+    }
+);
+
+axiosConfig.interceptors.response.use((response) => {return response }, (err) => {
+    return Promise.reject(err);
+})
+
+configure({ axios: axiosConfig });
 
 function App() {
     return (

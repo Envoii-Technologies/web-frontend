@@ -11,3 +11,5 @@ export { ModalWindow } from './ModalWindow/ModalWindow';
 export { PageContent } from './PageContent/PageContent';
 export { Table } from './Table/Table';
 export { LoadingIndicator } from './LoadingIndicator/LoadingIndicator';
+export { CardEditor } from './CardEditor/CardEditor';
+export { PopOver } from './PopOver/PopOver';

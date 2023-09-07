@@ -13,7 +13,10 @@ export const CenterWrapper = ({ children }) => {
 }
 
 CenterWrapper.propTypes = {
-    children: PropTypes.element
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.element),
+        PropTypes.element,
+    ]),
 };
 
 CenterWrapper.defaultProps = {

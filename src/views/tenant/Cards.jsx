@@ -16,20 +16,21 @@ import {
     PageHeader,
     SearchBar,
     Table,
-    LoadingIndicator
+    LoadingIndicator,
+    PopOver,
 } from '../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFileCircleXmark,
     faFileSignature,
     faCircleQuestion,
+    faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons';
 
 import 'react-data-grid/lib/styles.css';
 
-export const Cards = () =>
-{
-    useDocumentTitle("Karten");
+export const Cards = () => {
+    useDocumentTitle('Karten');
 
     const [cardList, setCardList] = useState([]);
     const [oldCardList, setOldCardList] = useState([]);
@@ -39,6 +40,18 @@ export const Cards = () =>
     const authContext = useContext(AuthContext);
 
     const navigate = useNavigate();
+
+    const markCardAsDeleted = async (e, id) => {
+        e.preventDefault();
+        axios
+            .put(
+                `http://localhost:4001/api/tenants/${authContext.tenant}/cards/${id}/status`
+            )
+            .then((res) => {
+                getAllCards();
+            })
+            .catch((err) => console.log(err.message));
+    };
 
     const deleteSelectedCard = async (e, id) => {
         e.preventDefault();
@@ -59,14 +72,17 @@ export const Cards = () =>
             key: 'title',
             name: 'Titel',
             renderCell({ row, onRowChange, tabIndex }) {
-                return (
-                    <Link
+                return <>{!row.deleted ? <>
+                <Link
                         className="dataTable__row__cell__link"
                         to={`/${authContext.tenant}/cards/${row._id}`}
                     >
-                        {row.title}
+                        <>{row.title}</>
+                        
                     </Link>
-                );
+                </> : <>
+                <s>{row.title}</s>
+                </>}</>;
             },
         },
         { key: '__v', name: 'Version' },
@@ -94,7 +110,11 @@ export const Cards = () =>
                         <div className="dataTable__row__cell__info__wrapper">
                             <span
                                 className={`dataTable__row__cell__info__circle ${
-                                    row.released ? 'released' : 'unreleased'
+                                    row.deleted
+                                        ? 'deleted'
+                                        : row.released
+                                        ? 'released'
+                                        : 'unreleased'
                                 }`}
                             ></span>
                         </div>
@@ -109,19 +129,31 @@ export const Cards = () =>
             renderCell({ row, onRowChange, tabIndex }) {
                 return (
                     <div className="dataTable__row__cell__info__wrapper">
-                        <Button
-                            size="small"
-                            fluid={false}
-                            icon={faFileSignature}
-                            type="primary"
-                        />
-                        <Button
-                            size="small"
-                            fluid={false}
-                            icon={faFileCircleXmark}
-                            type="error"
-                            onClick={(e) => deleteSelectedCard(e, row._id)}
-                        />
+                        <PopOver
+                            options={[
+                                {
+                                    label: 'Editieren',
+                                    type: 'secondary',
+                                    action: () =>
+                                        navigate(
+                                            `/${authContext.tenant}/cards/${row._id}`
+                                        ),
+                                },
+                                {
+                                    label: 'Löschen',
+                                    type: 'secondary',
+                                    action: (e) =>
+                                        markCardAsDeleted(e, row._id),
+                                },
+                            ]}
+                        >
+                            <Button
+                                fluid={false}
+                                type="secondary"
+                                size="small"
+                                icon={faEllipsisVertical}
+                            />
+                        </PopOver>
                     </div>
                 );
             },
@@ -162,7 +194,7 @@ export const Cards = () =>
     }, []);
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator full/>;
+        return <LoadingIndicator full />;
     } else if (!authContext.hasRole('app_editor')) {
         return <>NO ACCESS</>;
     } else {
@@ -184,7 +216,7 @@ export const Cards = () =>
 
                 <PageContent isFluid={true}>
                     {isLoading ? (
-                        <LoadingIndicator/>
+                        <LoadingIndicator />
                     ) : (
                         <>
                             <Table />

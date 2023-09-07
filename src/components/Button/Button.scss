@@ -75,15 +75,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-grow: 1;
+        flex-grow: 0;
     }
 
     &.default {
         border: 2px solid rgba($default-color-light, 0.65);
         color: rgba(black, 0.55);
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
         &:hover,
         &:focus {
@@ -108,9 +105,6 @@
     &.secondary {
         background: 2px solid rgba($default-color-light, 0.65);
         color: rgba(black, 0.55);
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
         &:hover,
         &:focus {

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContextProvider';
-import { PageContent, PageHeader,LoadingIndicator } from '../../components/';
+import { PageContent, PageHeader,LoadingIndicator, PopOver } from '../../components/';
 
 import { useDocumentTitle } from '../../hooks';
 
@@ -17,7 +17,11 @@ export const Dashboard = () =>
                 <PageHeader title="Dashboard" hasBackground={false} helpLink="/"/>
 
                 <PageContent isFluid={true}>
-                    Dashboard inhalt...
+                    
+                        <p>
+                            popover <PopOver><b>test</b></PopOver> for usability
+                        </p>
+                        
                 </PageContent>
             </>
         );

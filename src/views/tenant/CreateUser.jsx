@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
+
+// import useAxios from 'axios-hooks';
 
 import { useDocumentTitle } from '../../hooks';
 
@@ -41,6 +44,12 @@ export const CreateUser = () => {
 
     const navigate = useNavigate();
 
+    // const [{ data, loading, error }, fetchData] = useAxios({
+    //     url: `http://localhost:4001/api/tenants/${authContext.tenant}/users`,
+    //     method: 'POST',
+    //     data: userInfo,
+    // });
+
     useEffect(() => {
         console.log(checkBoxAmount);
     }, [checkBoxAmount]);
@@ -70,7 +79,7 @@ export const CreateUser = () => {
         });
     };
 
-    const handleCreateUser = (e) => {
+    const handleCreateUser = async (e) => {
         e.preventDefault();
 
         if (!userInfo.username) {
@@ -89,33 +98,46 @@ export const CreateUser = () => {
             setErrorMessage({ type: '', message: '' });
             // setErrorMessage('Ein Benutzer benötigt mindestens eine Rolle');
         } else {
+            // const fetch = await fetchData()
+            //     .then((doc) => console.log(doc))
+            //     .catch((err) => {
+            //         if (err.response.status === 409) {
+            //             setErrorMessage({ type: '', message: '' });
+            //             setErrorMessage({
+            //                 type: 'exists',
+            //                 message:
+            //                     'Eine Benutzer mit diesem Namen oder E-Mail existiert bereits',
+            //             });
+            //         }
+            //     });
+
             axios
                 .post(
                     `http://localhost:4001/api/tenants/${authContext.tenant}/users`,
-                    userInfo
+                    userInfo,
                 )
-                .then((res) => {
-                    if (res.data.success) {
-                        navigate(`/${authContext.tenant}/settings/users`);
-                    } else if (!res.data.success) {
-                        console.log(res.data.error);
-                        setErrorMessage({ type: '', message: '' });
-                        setErrorMessage({
-                            type: 'any',
-                            message: res.data.error.errorMessage,
-                        });
-                    }
-                })
-                .catch((err) => {
-                    if (err.response.status === 409) {
-                        setErrorMessage({ type: '', message: '' });
-                        setErrorMessage({
-                            type: 'exists',
-                            message:
-                                'Eine Benutzer mit diesem Namen oder E-Mail existiert bereits',
-                        });
-                    }
-                });
+            .then((res) => {
+                if (res.data.success) {
+                    navigate(`/${authContext.tenant}/settings/users`);
+                } else if (!res.data.success) {
+                    console.log(res.data.error);
+                    setErrorMessage({ type: '', message: '' });
+                    setErrorMessage({
+                        type: 'any',
+                        message: res.data.error.errorMessage,
+                    });
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 409) {
+                    setErrorMessage({ type: '', message: '' });
+                    setErrorMessage({
+                        type: 'exists',
+                        message:
+                            'Eine Benutzer mit diesem Namen oder E-Mail existiert bereits',
+                    });
+                }
+            });
         }
     };
 
@@ -211,13 +233,13 @@ export const CreateUser = () => {
                         onChange={handleChangeUserInfo}
                     />
 
-                        <FormInput
-                            label="Passwort"
-                            // placeholder="Geben Sie einen Benutzernamen ein"
-                            name="password"
-                            value={userInfo.password}
-                            onChange={handleChangeUserInfo}
-                        />
+                    <FormInput
+                        label="Passwort"
+                        // placeholder="Geben Sie einen Benutzernamen ein"
+                        name="password"
+                        value={userInfo.password}
+                        onChange={handleChangeUserInfo}
+                    />
 
                     <label>
                         Rollen

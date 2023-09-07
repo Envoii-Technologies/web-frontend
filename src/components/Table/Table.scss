@@ -58,6 +58,11 @@
                 {
                     background: $warning-color;
                 }
+
+                &.deleted
+                {
+                    background: $default-color-light;
+                }
             }
         }
 

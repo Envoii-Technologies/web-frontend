@@ -29,11 +29,16 @@ export const ModalWindow = ({
 
     useEffect(() => {
         const handleKeyEvent = (e) => {
-            if (e.keyCode === 27) {
-                onCancel();
-            }
-            if (e.keyCode === 13) {
-                onAccept();
+            if(show)
+            {
+                if (e.keyCode === 27)
+                {
+                    onCancel();
+                }
+                if (e.keyCode === 13)
+                {
+                    onAccept();
+                }
             }
         };
 
@@ -42,7 +47,7 @@ export const ModalWindow = ({
         return () => {
             window.document.removeEventListener('keydown', handleKeyEvent);
         };
-    }, []);
+    }, [show]);
 
     if (!show) {
         return null;

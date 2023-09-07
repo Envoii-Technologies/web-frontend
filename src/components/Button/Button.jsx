@@ -16,32 +16,33 @@ export const Button = ({
     return (
         <>
             <button
-                className={`Button ${fluid ? 'fluid' : ''} ${type} ${ isLoading ? 'loading' : '' }`}
+                className={`Button ${fluid ? 'fluid' : ''} ${type} ${
+                    isLoading ? 'loading' : ''
+                }`}
                 type="button"
                 onClick={onClick}
                 {...props}
             >
                 <div className={`Button__wrapper ${size}`}>
-                   {
-                        !isLoading ? (
-                            <>
+                    {!isLoading ? (
+                        <>
                             {icon && (
-                        <div className="Button__icon__wrapper">
-                            <FontAwesomeIcon
-                                className="Button__icon"
-                                icon={icon}
-                            />
-                        </div>
+                                <div className="Button__icon__wrapper">
+                                    <FontAwesomeIcon
+                                        className="Button__icon"
+                                        icon={icon}
+                                    />
+                                </div>
+                            )}
+                            {label && (
+                                <span className="Button__label">{label}</span>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <div className="Button__spinner"></div>
+                        </>
                     )}
-                    {label && <span className="Button__label">{label}</span>}
-                            </>
-                        ) : (
-                            <>
-                                <div className="Button__spinner"></div>
-                            </>
-                        )
-                   }
-                    
                 </div>
             </button>
         </>
