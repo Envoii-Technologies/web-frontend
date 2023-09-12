@@ -200,7 +200,7 @@ export const Cards = () => {
     } else {
         return (
             <>
-                <PageHeader title="Karten" hasBackground={false} helpLink="/">
+                <PageHeader title="Karten" hasBackground={false} helplink="/">
                     <SearchBar
                         onSearchSubmit={(term) => onSearchSubmit(term)}
                     />

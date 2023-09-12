@@ -103,7 +103,7 @@ export const Users = () =>
     } else {
         return (
             <>
-                <PageHeader title="Benutzer" hasBackground={false} helpLink="/">
+                <PageHeader title="Benutzer" hasBackground={false} helplink="/">
                     <Button
                         label="Neuer Benutzer"
                         isLoading={isLoading}

@@ -21,6 +21,16 @@ export const HeaderMenu = ({ children }) => {
                     >
                         Arbeitsanweisung hinzufügen
                     </button>
+                    <button
+                        onClick={() =>
+                            createStep({
+                                name: 'Neue Präsentation',
+                                type: 'slide',
+                            })
+                        }
+                    >
+                        Slide hinzufügen
+                    </button>
                 </div>
                 <div className="HeaderMenu__stepName">
                     {selectedStep && (

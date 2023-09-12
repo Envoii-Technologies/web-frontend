@@ -12,7 +12,7 @@ export const PageHeader = ({
     onBack,
     children,
     hasBackground,
-    helpLink,
+    helplink,
 }) => {
     return (
         <>
@@ -46,7 +46,7 @@ export const PageHeader = ({
                             {children}
 
                     {
-                        helpLink &&
+                        helplink &&
                         <Button
                             size="small"
                             fluid={false}
@@ -72,7 +72,7 @@ PageHeader.propTypes = {
         PropTypes.element,
     ]),
     hasBackground: PropTypes.bool,
-    helpLink: PropTypes.string,
+    helplink: PropTypes.string,
 };
 
 PageHeader.defaultProps = {
@@ -81,5 +81,5 @@ PageHeader.defaultProps = {
     onBack: undefined,
     children: undefined,
     hasBackground: true,
-    helpLink: undefined,
+    helplink: undefined,
 };

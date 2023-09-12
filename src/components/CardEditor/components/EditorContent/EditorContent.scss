@@ -1,0 +1,33 @@
+@use './../../../../styles-global.scss' as *;
+
+.EditorContent
+{
+    display: flex;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+
+    &__wrapper
+    {
+        overflow-y: scroll;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__content
+    {
+        padding: 1rem;
+        flex-grow: 1;
+        max-width: $page-width-default;
+    }
+
+    &__noContent
+    {
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        display: flex;
+        font-weight: bold;
+    }
+}

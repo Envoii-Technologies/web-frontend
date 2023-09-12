@@ -83,7 +83,7 @@ export const ViewCard = () => {
                     subtitle={cardInfo.title}
                     onCancel={() => navigate(`/${authContext.tenant}/cards`)}
                     onCancelTitle="Zurück"
-                    helpLink="/"
+                    helplink="/"
                 />
 
                 <PageContent>{isLoading ? <>loading...</> : <></>}</PageContent>

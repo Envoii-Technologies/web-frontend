@@ -9,10 +9,11 @@ import {
     PageContent,
     FormInput,
     ModalWindow,
+    FormError,
 } from '../';
 
 import './CardEditor.scss';
-import { HeaderMenu, StepManager } from './components/';
+import { EditorContent, HeaderMenu, StepManager } from './components/';
 
 export const CardEditor = ({ cardId, tenant }) => {
     const [currentPage, setCurrentPage] = useState('steps');
@@ -30,6 +31,7 @@ export const CardEditor = ({ cardId, tenant }) => {
         card,
         saveCard,
         markCardForDeletion,
+        errorMessage,
         createStep,
         selectStep,
         selectedStep,
@@ -91,8 +93,8 @@ export const CardEditor = ({ cardId, tenant }) => {
                         <div className="CardEditor">
                             <HeaderMenu />
                             <div className="CardEditor__layout">
-                                <StepManager>a</StepManager>
-                                <PageContent isFluid>s</PageContent>
+                                <StepManager/>
+                                <EditorContent/>
                             </div>
                         </div>
                     </>
@@ -101,7 +103,15 @@ export const CardEditor = ({ cardId, tenant }) => {
                 {currentPage === 'info' && (
                     <>
                         <PageContent>
+                        {errorMessage?.message && (
+                        <FormError
+                            type="error"
+                            message={errorMessage.message}
+                        />
+                    )}
+
                             <FormInput
+                                status={errorMessage.type === 'title' ? 'error' : ''}
                                 label="Titel"
                                 name="title"
                                 value={card.title}

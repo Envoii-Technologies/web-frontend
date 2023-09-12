@@ -14,7 +14,7 @@ export const Dashboard = () =>
     } else {
         return (
             <>
-                <PageHeader title="Dashboard" hasBackground={false} helpLink="/"/>
+                <PageHeader title="Dashboard" hasBackground={false} helplink="/"/>
 
                 <PageContent isFluid={true}>
                     

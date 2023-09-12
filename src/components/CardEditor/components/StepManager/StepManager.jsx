@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-import './StepManager.scss';
+import {
+    faFileCircleXmark,
+    faFileSignature,
+    faCircleQuestion,
+    faEllipsisVertical,
+} from '@fortawesome/free-solid-svg-icons';
+
 import { useCardEditor } from '../../../../context/CardEditorContextProvider';
+import { ModalWindow, Button, PopOver } from '../../../';
+import './StepManager.scss';
 
-import { ModalWindow } from '../../../ModalWindow/ModalWindow';
-
-export const StepManager = ({ children }) => {
+export const StepManager = () => {
     const { card, selectStep, selectedStep, deleteStep } = useCardEditor();
     const [showDeleteWindow, setShowDeleteWindow] = useState(false);
 
@@ -34,15 +40,29 @@ export const StepManager = ({ children }) => {
                 body="Wollen Sie diesen Schritt wirklich löschen?"
             />
             <div className="StepManager">
-                <ul>
+                <ul className="StepManager__items">
                     {card.steps.map((step, i) => (
-                        <li key={i}>
-                            <button onClick={() => selectStep(step.id)}>
+                        <li key={i} className="StepManager__items__item"  onClick={() => selectStep(step.id)}>
+                            <span className="StepManager__items__item__name">
                                 {step.name}
-                            </button>
-                            <button onClick={() => { handleShowDeleteWindow(step.id) }}>
-                                delete
-                            </button>
+                            </span>
+                            <PopOver
+                            options={[
+                                {
+                                    label: 'Löschen',
+                                    type: 'secondary',
+                                    action: () =>
+                                    handleShowDeleteWindow(step.id)
+                                },
+                            ]}
+                        >
+                            <Button
+                                fluid={false}
+                                type="secondary"
+                                size="small"
+                                icon={faEllipsisVertical}
+                            />
+                        </PopOver>
                         </li>
                     ))}
                 </ul>
@@ -52,12 +72,7 @@ export const StepManager = ({ children }) => {
 };
 
 StepManager.propTypes = {
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.element),
-        PropTypes.element,
-    ]),
 };
 
 StepManager.defaultProps = {
-    children: null,
 };

@@ -9,6 +9,7 @@ const defaultCardEditorContextValues = {};
 export const CardEditorContext = createContext(defaultCardEditorContextValues);
 
 export const CardEditorContextProvider = ({ children }) => {
+    const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
     const [isSaving, setIsSaving] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [tenant, setTenant] = useState(null);
@@ -29,6 +30,7 @@ export const CardEditorContextProvider = ({ children }) => {
     }, [newestStepId]);
 
     const handleCardChange = (e) => {
+        setErrorMessage({ type: '', message: '' });
         setIsSavable(true);
 
         if (e.target.type === 'text') {
@@ -52,6 +54,7 @@ export const CardEditorContextProvider = ({ children }) => {
             .get(`http://localhost:4001/api/tenants/${tenant}/cards/${cardId}`)
             .then((res) => {
                 setCard(res.data.card);
+                setSelectedStep(res.data.card.steps[0]);
                 setIsLoading(false);
             })
             .catch((err) => console.log(err.message));
@@ -65,20 +68,35 @@ export const CardEditorContextProvider = ({ children }) => {
                 card
             )
             .then((res) => {
+                setErrorMessage({
+                    type: '',
+                    message: ''
+                });
                 setIsSaving(false);
                 setIsSavable(false);
                 setCard(null);
                 setCard(res.data.data);
+            })
+            .catch((err) => {
+                if (err.response.data.info.code === 11000) {
+                    setErrorMessage({
+                        type: 'title',
+                        message:
+                            'Eine Karte mit diesem Namen existiert bereits',
+                    });
+                    setIsSaving(false);
+                    setIsSavable(false);
+                }
             });
     };
 
     const markCardForDeletion = (cardId) => {
         axios
             .put(
-                `http://localhost:4001/api/tenants/${tenant}/cards/${cardId}/status`,
+                `http://localhost:4001/api/tenants/${tenant}/cards/${cardId}/status`
             )
             .then((res) => {
-                navigate(`/${tenant}/cards/`)
+                navigate(`/${tenant}/cards/`);
             })
             .catch((err) => console.log(err.message));
     };
@@ -86,10 +104,10 @@ export const CardEditorContextProvider = ({ children }) => {
     const removeCard = (cardId) => {
         axios
             .delete(
-                `http://localhost:4001/api/tenants/${tenant}/cards/${cardId}`,
+                `http://localhost:4001/api/tenants/${tenant}/cards/${cardId}`
             )
             .then((res) => {
-                navigate(`/${tenant}/cards/`)
+                navigate(`/${tenant}/cards/`);
             })
             .catch((err) => console.log(err.message));
     };
@@ -137,6 +155,7 @@ export const CardEditorContextProvider = ({ children }) => {
         console.log(filteredSteps);
 
         setCard({ ...card, steps: filteredSteps });
+        setSelectedStep(null);
         console.log(card);
     };
 
@@ -153,12 +172,12 @@ export const CardEditorContextProvider = ({ children }) => {
                 saveCard,
                 markCardForDeletion,
                 removeCard,
-
                 selectedStep,
                 handleStepChange,
                 createStep,
                 selectStep,
                 deleteStep,
+                errorMessage,
             }}
         >
             {children}

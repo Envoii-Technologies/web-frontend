@@ -78,14 +78,18 @@ export const CreateCard = () => {
                         navigate(
                             `/${authContext.tenant}/cards/${res.data.data._id}`
                         );
-                    } else if (!res.data.success) {
-                        console.log(res.data);
-                        setErrorMessage({ type: '', message: '' });
-                        // setErrorMessage(res.data.error.errorMessage);
                     }
+                    //  else if (!res.data.success) {
+                    //     console.log(res.data);
+                    //     setErrorMessage({ type: '', message: '' });
+                    //     // setErrorMessage(res.data.error.errorMessage);
+                    // }
                 })
                 .catch((err) => {
-                    console.log('EER', err);
+                    if(err.response.data.code === 11000)
+                    {
+                        setErrorMessage({ type: 'title', message: 'Eine Karte mit diesem Namen existiert bereits' });
+                    }
                 });
         }
     };
@@ -114,7 +118,7 @@ export const CreateCard = () => {
                     title="Karten"
                     subtitle="Neue Karte"
                     onBack={() => navigate(`/${authContext.tenant}/cards`)}
-                    helpLink="/"
+                    helplink="/"
                 >
                     <Button
                         type="primary"

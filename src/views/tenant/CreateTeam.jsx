@@ -99,7 +99,7 @@ export const CreateTeam = () =>
     } else {
         return (
             <>
-                <PageHeader title="Teams" helpLink="/"/>
+                <PageHeader title="Teams" helplink="/"/>
 
                 <PageContent>
                 {isLoading ? (

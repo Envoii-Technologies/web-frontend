@@ -155,7 +155,7 @@ export const CreateUser = () => {
                         navigate(`/${authContext.tenant}/settings/users`)
                     }
                     hasBackground={false}
-                    helpLink="/"
+                    helplink="/"
                 >
                     <Button
                         type="primary"
