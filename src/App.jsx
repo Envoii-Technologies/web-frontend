@@ -51,9 +51,9 @@ function App() {
                 <Routes>
                     <Route
                         path="/"
-                        element={<Navigate to="/login" replace />}
+                        element={<Navigate to="/signin" replace />}
                     />
-                    <Route path="/login" element={<LoginLayout />}>
+                    <Route path="/signin" element={<LoginLayout />}>
                         <Route index element={<Login />} />
                     </Route>
 
