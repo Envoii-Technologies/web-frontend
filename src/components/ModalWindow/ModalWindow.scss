@@ -1,0 +1,69 @@
+@use './../../styles-global.scss' as *;
+
+.modalWrapper {
+    position: fixed;
+    left: 0;
+    top: -10em;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($font-color-default, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.ModalWindow {
+    width: 25em;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+
+    &__header,
+    &__footer {
+        padding: 10px;
+    }
+
+    &__header
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        // border-bottom: 1px solid #eee;
+
+        &__title
+        {
+            margin: 0;
+            font-weight: 800;
+            font-size: 1.5em;
+        }
+
+        &__close
+        {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.25em;
+            color: rgba(0, 0, 0, 0.75);
+
+            &:hover
+            {
+                color: rgba(0, 0, 0, 1);
+            }
+        }
+    }
+
+    &__body
+    {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    &__footer
+    {
+        max-height: 2rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+    }
+}

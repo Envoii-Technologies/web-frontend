@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +18,7 @@ import helpers from '../../../helpers/';
 import logo from './../../../../public/logo-black.png';
 
 import './NavBar.scss';
-import { ModalWindow } from '../../shared';
+import { ModalWindow } from '../../';
 
 export const NavBar = () => {
     const [showLogoutWindow, setShowLogOutWindow] = useState(false);
@@ -36,7 +36,7 @@ export const NavBar = () => {
                     path: '',
                     children: [
                         {
-                            title: 'Nutzer',
+                            title: 'Benutzer',
                             path: `/${authContext.tenant}/settings/users`,
                         },
                         {
@@ -78,8 +78,8 @@ export const NavBar = () => {
                     show={showLogoutWindow}
                     onCancel={() => setShowLogOutWindow(false)}
                     onAccept={() => authContext.logout()}
-                    cancelText="Abbrechen"
-                    acceptText="Ausloggen"
+                    cancelText="Abbrechen (Esc)"
+                    acceptText="Ausloggen (Enter)"
                     title="Achtung"
                     body="Wollen Sie sich wirklich ausloggen?"
                 />
@@ -133,6 +133,7 @@ export const NavBar = () => {
                                     <>
                                         <li className="NavBar__right__menu__item">
                                             <NavLink
+                                                exact="true"
                                                 className="NavBar__right__menu__item__wrapper parent"
                                                 to={`/${authContext.tenant}/`}
                                             >
@@ -155,7 +156,7 @@ export const NavBar = () => {
                                                     )
                                             )
                                             .map((menu, j) => (
-                                                <span key={j}>
+                                                <React.Fragment key={j}>
                                                     {menu.items.map(
                                                         (item, j) => (
                                                             <li
@@ -187,6 +188,7 @@ export const NavBar = () => {
                                                                     </button>
                                                                 ) : (
                                                                     <NavLink
+                                                                        exact="true"
                                                                         className="NavBar__right__menu__item__wrapper parent"
                                                                         to={
                                                                             item.path
@@ -209,7 +211,7 @@ export const NavBar = () => {
                                                             </li>
                                                         )
                                                     )}
-                                                </span>
+                                                </React.Fragment>
                                             ))}
                                     </>
                                 ) : (

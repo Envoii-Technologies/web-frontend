@@ -3,16 +3,21 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import { useDocumentTitle } from '../../hooks';
+
 import { AuthContext } from '../../context/AuthContextProvider';
 import {
-    LoadingIndicator,
     PageContent,
+    Button,
     PageHeader,
-} from '../../components/shared';
-import { CardEditor } from '../../components/tenant/CardEditor/CardEditor';
-import { CardEditorContextProvider } from '../../context/CardEditorContext';
+    LoadingIndicator,
+} from '../../components';
+import { CardEditor } from '../../components/';
+import { CardEditorContextProvider } from '../../context/CardEditorContextProvider';
 
 export const ViewCard = () => {
+    useDocumentTitle('Kartendetails');
+
     const [isLoading, setIsLoading] = useState(true);
     const [cardInfo, setCardInfo] = useState([]);
 
@@ -22,43 +27,52 @@ export const ViewCard = () => {
 
     const { id } = useParams();
 
-    const getCardInfo = async () => {
-        axios
-            .get(
-                `http://localhost:4001/api/tenants/${authContext.tenant}/cards/${id}`
-            )
-            .then((res) => {
-                setCardInfo(res.data.card);
-                setIsLoading(false);
-            })
-            .catch((err) => console.log(err.message));
-    };
+    // const getCardInfo = async () => {
+    //     axios
+    //         .get(
+    //             `http://localhost:4001/api/tenants/${authContext.tenant}/cards/${id}`
+    //         )
+    //         .then((res) => {
+    //             setCardInfo(res.data.card);
 
-    useEffect(() => {
-        getCardInfo();
-    }, []);
+    //             if(res.data.card) document.title = res.data.card.title;
+
+    //             setIsLoading(false);
+    //         })
+    //         .catch((err) => console.log(err.message));
+    // };
+
+    // useEffect(() => {
+    //     getCardInfo();
+    // }, []);
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator />;
+        return <LoadingIndicator full />;
     } else if (authContext.hasRole('app_editor')) {
         return (
             <>
-                <PageHeader
-                    title="Karten"
-                    subtitle={cardInfo.title}
-                    onCancel={() => navigate(`/${authContext.tenant}/cards`)}
-                    onCancelTitle="Zurück"
-                />
+                <CardEditorContextProvider>
+                    <CardEditor cardId={id} tenant={authContext.tenant} />
+                    {/* <PageHeader
+                        hasBackground
+                        title="Karten"
+                        subtitle={cardInfo.title}
+                        onBack={() => navigate(`/${authContext.tenant}/cards`)}
+                        helpLink="/"
+                    >
+                        <Button type="primary" label="Speichern" />
+                    </PageHeader>
 
-                <PageContent hasWrapper={false}>
-                    {isLoading ? (
-                        <>loading...</>
-                    ) : (
-                        <CardEditorContextProvider>
-                            <CardEditor card={cardInfo} />
-                        </CardEditorContextProvider>
-                    )}
-                </PageContent>
+                    <PageContent hasWrapper={false}>
+                        {isLoading ? (
+                            <>loading...</>
+                        ) : (
+                            <>ok</>
+                            //     <CardEditor card={cardInfo} tenant={authContext.tenant} />
+                        )}
+                    </PageContent> */}
+                    
+                </CardEditorContextProvider>
             </>
         );
     } else if (authContext.hasRole('app_user')) {
@@ -69,22 +83,11 @@ export const ViewCard = () => {
                     subtitle={cardInfo.title}
                     onCancel={() => navigate(`/${authContext.tenant}/cards`)}
                     onCancelTitle="Zurück"
+                    helplink="/"
                 />
 
                 <PageContent>{isLoading ? <>loading...</> : <></>}</PageContent>
             </>
         );
     }
-
-    // if (!authContext.isAuthenticated) {
-    //     return <LoadingIndicator />;
-    // } else if (!authContext.hasRole('app_admin')) {
-    //     return <>NO ACCESS</>;
-    // } else {
-    //     return (
-    //         <>
-    //             <h1>Card</h1>
-    //         </>
-    //     );
-    // }
 };

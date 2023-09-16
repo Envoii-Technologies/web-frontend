@@ -1,0 +1,40 @@
+/*
+dark: 191C24
+primary: AF1763
+BLUE: 0D6EFD
+GREEN: 198754
+LIGHTBLUE: 0DCAF0
+RED: AB2E3C
+Yellow: FFC107
+*/
+
+$box-shadow-bottom: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+$area-edge-border: 1px solid rgba(0, 0, 0, 0.10);
+$font-color-primary: rgba(32, 50, 87, 0.90);
+
+$font-size-small: 0.85rem;
+$font-size-medium: 1rem;
+$font-size-large: 1.5rem;
+$font-color-default: #203257;
+
+$error-color: #AB2E3C;
+$warning-color: #FFC107;
+$success-color: #198754;
+$default-color: #D9E2F4;
+$primary-color: #568DFF;
+$default-color-light: #b0b0b0;
+$disabled-color: #c6c6c6;
+$default-border-color: #e8e8e8;
+
+$primary-background-light: white;
+
+$border-radius-default: 0.25rem;
+
+$page-width-default: 800px;
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 100;
+    src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+}

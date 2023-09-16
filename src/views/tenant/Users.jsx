@@ -2,19 +2,21 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import DataGrid, {SelectColumn} from 'react-data-grid';
+import { useDocumentTitle } from '../../hooks';
+
+import DataGrid, { SelectColumn } from 'react-data-grid';
 import { AuthContext } from '../../context/AuthContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faPenToSquare,
-    faTrashCan,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-import { LoadingIndicator, PageContent, PageHeader } from '../../components/shared';
+import { PageContent, Button, PageHeader,LoadingIndicator } from '../../components';
 
 import 'react-data-grid/lib/styles.css';
 
-export const Users = () => {
+export const Users = () =>
+{
+    useDocumentTitle("Benutzer");
+
     const [isLoading, setIsLoading] = useState(true);
     const [userList, setUserList] = useState([]);
 
@@ -22,84 +24,107 @@ export const Users = () => {
 
     const columns = [
         SelectColumn,
-        // { key: 'id', name: 'ID' },
-        { key: 'username', name: "Username"},
+        { key: 'username', name: 'Username' },
         { key: 'email', name: 'E-Mail' },
-        { key: 'firstname', name: "Vorname"},
-        { key: 'lastname', name: "Nachname"},
-        { key: 'jobtitle', name: "Berufsbezeichnung" },
-        { key: 'personalid', name: "Personalnummer" },
-        { key: 'action', name: "Aktion", renderCell({ row, onRowChange, tabIndex }) {
-            return (
-              <>
-                <button><FontAwesomeIcon icon={faPenToSquare} /></button>
-                <button onClick={(e) => deleteUser(e, row.id)} disabled={row.username === "admin" }><FontAwesomeIcon icon={faTrashCan} /></button>
-              </>
-            );
-          },}
-      ];
+        { key: 'firstname', name: 'Vorname' },
+        { key: 'lastname', name: 'Nachname' },
+        { key: 'jobtitle', name: 'Berufsbezeichnung' },
+        { key: 'personalid', name: 'Personalnummer' },
+        {
+            key: 'action',
+            name: 'Aktion',
+            renderCell({ row, onRowChange, tabIndex }) {
+                return (
+                    <>
+                        <button>
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                        </button>
+                        <button
+                            onClick={(e) => deleteUser(e, row.id)}
+                            disabled={row.username === 'admin'}
+                        >
+                            <FontAwesomeIcon icon={faTrashCan} />
+                        </button>
+                    </>
+                );
+            },
+        },
+    ];
 
     const authContext = useContext(AuthContext);
 
     const getUsersByTenant = async () => {
-
         axios
             .get(
-                `http://localhost:4001/api/tenants/${authContext.tenant}/users`, {
-                    headers: { Authorization: `Bearer ${authContext.userToken}` }
+                `http://localhost:4001/api/tenants/${authContext.tenant}/users`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${authContext.userToken}`,
+                    },
                 }
             )
             .then((res) => {
                 setUserList(res.data.users);
-                console.log(res.data.users);
                 setIsLoading(false);
             })
             .catch((err) => console.log(err.message));
     };
 
     useEffect(() => {
-
         getUsersByTenant();
     }, []);
 
-    const deleteUser = async (e, id) =>
-    {
+    const deleteUser = async (e, id) => {
         e.preventDefault();
-        
-        axios.delete(`http://localhost:4001/api/tenants/${authContext.tenant}/users`,
-        {
-            headers: { Authorization: `Bearer ${authContext.getToken()}` },
-            data: {id: id}
-        })
-        .then((res) => {
-            if(res.data.success)
-            {
-                setIsLoading(true);
-                getUsersByTenant();
-            }
-        })
-        .catch((err) => console.log(err.message));
-    }
+
+        axios
+            .delete(
+                `http://localhost:4001/api/tenants/${authContext.tenant}/users`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${authContext.getToken()}`,
+                    },
+                    data: { id: id },
+                }
+            )
+            .then((res) => {
+                if (res.data.success) {
+                    setIsLoading(true);
+                    getUsersByTenant();
+                }
+            })
+            .catch((err) => console.log(err.message));
+    };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator/>
-    }
-    else if(!authContext.hasRole("app_admin"))
-    {
-        return <>NO ACCESS</>
-    }
-    else {
+        return <LoadingIndicator full/>;
+    } else if (!authContext.hasRole('app_admin')) {
+        return <>NO ACCESS</>;
+    } else {
         return (
             <>
-                <PageHeader title="Benutzer" onAction={() => navigate(`/${authContext.tenant}/settings/users/create`)} onActionTitle="Neuer Nutzer"/>
+                <PageHeader title="Benutzer" hasBackground={false} helplink="/">
+                    <Button
+                        label="Neuer Benutzer"
+                        isLoading={isLoading}
+                        type="primary"
+                        onClick={() =>
+                            navigate(`/${authContext.tenant}/settings/users/create`)
+                        }
+                    />
+                </PageHeader>
 
                 <PageContent>
                     {isLoading ? (
-                        <>loading...</>
+                        <LoadingIndicator/>
                     ) : (
                         <>
-
-                            <DataGrid columns={columns} rows={userList.filter(user => user.username !== "envoii")} />
+                            <DataGrid
+                                columns={columns}
+                                rows={userList.filter(
+                                    (user) => user.username !== 'envoii'
+                                )}
+                            />
                         </>
                     )}
                 </PageContent>

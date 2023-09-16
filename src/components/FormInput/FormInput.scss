@@ -1,0 +1,68 @@
+@use './../../styles-global.scss' as *;
+
+.FormInput {
+    border-radius: $border-radius-default;
+    margin: 1rem 0;
+    border: $area-edge-border;
+    overflow: hidden;
+
+    &__label
+    {
+        font-weight: bold;
+    }
+
+    &.success {
+        border-color: rgba($success-color, 0.5);
+
+        .FormInput__metaInput {
+            color: $success-color;
+            background: rgba($success-color, 0.25);
+        }
+
+        .FormInput__metaLabel {
+            border-left: 1px solid rgba($success-color, 0.5);
+        }
+    }
+
+    &.error {
+        border-color: rgba($error-color, 0.5);
+
+        .FormInput__metaInput {
+            color: $error-color;
+            background: rgba($error-color, 0.25);
+        }
+
+        .FormInput__metaLabel {
+            border-left: 1px solid rgba($error-color, 0.5);
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+        height: 2.5rem;
+    }
+
+    &__metaInput {
+        flex-grow: 1;
+        padding: 0 1rem;
+        border: none;
+
+        &:focus {
+            background: rgba($default-color-light, 0.15);
+            border: none;
+            outline: none;
+        }
+    }
+
+    &__metaLabel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 1rem;
+        font-size: $font-size-small;
+        border-left: 1px solid rgba($default-color-light, 0.1);
+        background: rgba($default-color-light, 0.25);
+    }
+}

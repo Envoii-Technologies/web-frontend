@@ -1,0 +1,11 @@
+@use './../../styles-global.scss' as *;
+
+.CenterWrapper
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    gap: 1em;
+}

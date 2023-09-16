@@ -2,30 +2,68 @@ import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
+import { useDocumentTitle, useOnPageClose } from '../../hooks';
+
 import { AuthContext } from '../../context/AuthContextProvider';
 import {
-    LoadingIndicator,
     PageContent,
+    Button,
     PageHeader,
-} from '../../components/shared';
+    FormError,
+    FormInput,
+    FormTextarea,
+    LoadingIndicator
+} from '../../components';
 
 export const CreateCard = () => {
+    const [ canContinue, setCanContinue ] = useState(false);
     const [documentInfo, setDocumentInfo] = useState({
         title: '',
         description: '',
     });
-    const [errorMessage, setErrorMessage] = useState('');
-
+    const [errorMessage, setErrorMessage] = useState({ type: '', message: '' });
+    
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useDocumentTitle("Neue Karte erstellen");
+    useOnPageClose(canContinue);
+
+    useEffect(() => {
+        const checkedInputs = [];
+
+        checkedInputs.push(documentInfo?.title.length > 0 ? true : false);
+        checkedInputs.push(documentInfo?.description.length > 0 ? true : false);
+
+        if(checkedInputs.some(v => v === true))
+        {
+            setCanContinue(true);
+        }
+        else
+        {
+            setCanContinue(false);
+        }
+    }, [documentInfo]);
+
+    const triggerThis = () => {
+        window.onbeforeunload = confirmExit;
+        function confirmExit()
+        {
+          return "show message";
+        }
+    }
 
     const handleCreateCard = (e) => {
         e.preventDefault();
 
         if (!documentInfo.title) {
-            setErrorMessage('');
-            setErrorMessage('Titel muss angegeben werden');
+            setErrorMessage({ type: '', message: '' });
+            setErrorMessage({
+                type: 'title',
+                message: 'Titel muss angegeben werden',
+            });
         } else {
+            console.log(documentInfo);
             axios
                 .post(
                     `http://localhost:4001/api/tenants/${authContext.tenant}/cards`,
@@ -40,14 +78,18 @@ export const CreateCard = () => {
                         navigate(
                             `/${authContext.tenant}/cards/${res.data.data._id}`
                         );
-                    } else if (!res.data.success) {
-                        console.log(res.data);
-                        setErrorMessage('');
-                        // setErrorMessage(res.data.error.errorMessage);
                     }
+                    //  else if (!res.data.success) {
+                    //     console.log(res.data);
+                    //     setErrorMessage({ type: '', message: '' });
+                    //     // setErrorMessage(res.data.error.errorMessage);
+                    // }
                 })
                 .catch((err) => {
-                    console.log('EER', err);
+                    if(err.response.data.code === 11000)
+                    {
+                        setErrorMessage({ type: 'title', message: 'Eine Karte mit diesem Namen existiert bereits' });
+                    }
                 });
         }
     };
@@ -55,6 +97,9 @@ export const CreateCard = () => {
     const handleChangeDocumentInfo = (e) => {
         const value = e.target.value;
 
+        setErrorMessage({ type: '', message: '' });
+
+        
         setDocumentInfo({
             ...documentInfo,
             [e.target.name]: value,
@@ -62,57 +107,52 @@ export const CreateCard = () => {
     };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator />;
+        return <LoadingIndicator full/>;
     } else if (!authContext.hasRole('app_editor')) {
         return <>NO ACCESS</>;
     } else {
         return (
             <>
                 <PageHeader
+                    hasBackground={false}
                     title="Karten"
                     subtitle="Neue Karte"
-                    onAction={(e) => handleCreateCard(e)}
-                    onActionTitle="Speichern"
-                    onCancel={() => navigate(`/${authContext.tenant}/cards`)}
-                    onCancelTitle="Zurück"
-                />
+                    onBack={() => navigate(`/${authContext.tenant}/cards`)}
+                    helplink="/"
+                >
+                    <Button
+                        type="primary"
+                        label="Weiter"
+                        onClick={(e) => handleCreateCard(e)}
+                        disabled={documentInfo.title.length < 1}
+                    />
+                </PageHeader>
 
                 <PageContent>
-                    <form>
-                        <label>
-                            Titel
-                            <br />
-                            <input
-                                type="text"
-                                name="title"
-                                value={documentInfo.title}
-                                onChange={(e) => handleChangeDocumentInfo(e)}
-                            />
-                        </label>
+                    {errorMessage?.message && (
+                        <FormError
+                            type="error"
+                            message={errorMessage.message}
+                        />
+                    )}
 
-                        <br />
-                        <br />
+                    <FormInput
+                        status={errorMessage.type === 'title' ? 'error' : ''}
+                        label="Titel*"
+                        placeholder="Geben Sie einen Titel ein"
+                        autoFocus={true}
+                        name="title"
+                        value={documentInfo.title}
+                        onChange={(e) => handleChangeDocumentInfo(e)}
+                    />
 
-                        <label>
-                            Notizen
-                            <br />
-                            <textarea
-                                name="description" 
-                                rows={4} cols={40}
-                                defaultValue={documentInfo.description}
-                                onChange={(e) => handleChangeDocumentInfo(e)}
-                                />
-                        </label>
-
-                        <br />
-                        <br />
-
-                        {errorMessage && (
-                            <div className="">
-                                <p className="">{errorMessage}</p>
-                            </div>
-                        )}
-                    </form>
+                    <FormTextarea
+                        label="Notizen"
+                        placeholder="Geben Sie hier optionale Notizen an."
+                        name="description"
+                        defaultValue={documentInfo.description}
+                        onChange={(e) => handleChangeDocumentInfo(e)}
+                    />
                 </PageContent>
             </>
         );

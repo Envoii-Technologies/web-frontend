@@ -24,6 +24,8 @@ export const AuthContextProvider = ({ children, tenant }) => {
         keycloak.init({ onLoad: 'login-required', promiseType: 'native' }).then((authenticated) => {
             setKeycloak(keycloak);
 
+            window.accessToken = keycloak.token;
+
             setUserToken(keycloak.token);
 
             setIsAuthenticated(authenticated);

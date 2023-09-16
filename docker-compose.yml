@@ -69,22 +69,6 @@ services:
     networks:
       - envoii
 
-  # message broadcaster
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
-    volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    networks:
-      - envoii
-
   # message cache
   cache:
     image: redis

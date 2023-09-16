@@ -1,2 +1,3 @@
-export { AdminLayout } from './AdminLayout';
-export { TenantLayout } from './TenantLayout';
+export { AdminLayout } from './AdminLayout/AdminLayout';
+export { TenantLayout } from './TenantLayout/TenantLayout';
+export { LoginLayout } from './LoginLayout/LoginLayout';

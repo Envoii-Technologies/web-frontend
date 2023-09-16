@@ -2,10 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator, PageContent, PageHeader } from '../../components/shared';
+import { useDocumentTitle } from '../../hooks';
 
-export const CreateTeam = () => {
+import { AuthContext } from '../../context/AuthContextProvider';
+import { PageContent, PageHeader, LoadingIndicator} from '../../components/';
+
+export const CreateTeam = () =>
+{
+    useDocumentTitle("Neues Team erstellen");
+
     const [isLoading, setIsLoading] = useState(true);
     const [teamInfo, setTeamInfo] = useState({
         name: '',
@@ -88,17 +93,17 @@ export const CreateTeam = () => {
     };
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator/>
+        return <LoadingIndicator full/>;
     } else if (!authContext.hasRole('app_admin')) {
         return <>NO ACCESS</>;
     } else {
         return (
             <>
-                <PageHeader title="Teams"/>
+                <PageHeader title="Teams" helplink="/"/>
 
                 <PageContent>
                 {isLoading ? (
-                        <p>loading...</p>
+                        <LoadingIndicator/>
                     ) : (
                         <>
                             <ul>

@@ -1,0 +1,20 @@
+@use './../../styles-global.scss' as *;
+
+.LoginWindow
+{
+    margin-top: -10rem;
+    width: 24rem;
+    display: flex;
+    flex-direction: column;
+
+    &__header
+    {
+        color: $font-color-primary;
+        font-size: $font-size-large;
+    }
+
+    &__footer
+    {
+        font-size: $font-size-small;
+    }
+}

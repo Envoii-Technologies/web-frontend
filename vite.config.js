@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react';
 // import federation from '@originjs/vite-plugin-federation';
 
 export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'jsdom',
+  },
   build: {
     target: 'esnext'
   },

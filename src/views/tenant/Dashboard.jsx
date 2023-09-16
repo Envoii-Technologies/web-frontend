@@ -1,19 +1,27 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContextProvider';
-import { LoadingIndicator, PageContent, PageHeader } from '../../components/shared';
+import { PageContent, PageHeader,LoadingIndicator, PopOver } from '../../components/';
 
-export const Dashboard = () => {
+import { useDocumentTitle } from '../../hooks';
+
+export const Dashboard = () =>
+{
+    useDocumentTitle("Dashboard");
     const authContext = useContext(AuthContext);
 
     if (!authContext.isAuthenticated) {
-        return <LoadingIndicator/>
+        return <LoadingIndicator full/>;
     } else {
         return (
             <>
-                <PageHeader title="Dashboard"/>
+                <PageHeader title="Dashboard" hasBackground={false} helplink="/"/>
 
-                <PageContent>
-                    Dashboard inhalt...
+                <PageContent isFluid={true}>
+                    
+                        <p>
+                            popover <PopOver><b>test</b></PopOver> for usability
+                        </p>
+                        
                 </PageContent>
             </>
         );
