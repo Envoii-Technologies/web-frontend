@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
 
 const defaultTenantContextValues = {
@@ -11,18 +11,21 @@ const defaultTenantContextValues = {
 export const TenantContext = createContext(defaultTenantContextValues);
 
 export const TenantContextProvider = ({ children, tenant }) => {
-    const [currentTenant, setCurrentTenant] = useState();
+    const [currentTenant, setCurrentTenant] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const getTenantInfo = async () => {
             axios
-                .get(import.meta.env.VITE_TENANT_SERVICE_URL + `/${tenant}`)
+                .get(`/api/tenant/${tenant}`)
                 .then((res) => {
-                const { name, title } = res.data.tenant;
+                    const { name, title } = res.data.tenant;
 
                     setCurrentTenant({ name, title });
                     setIsLoading(false);
+                }).catch((err) => {
+                    setErrorMessage(err);
                 });
         };
 
@@ -34,6 +37,7 @@ export const TenantContextProvider = ({ children, tenant }) => {
             value={{
                 tenant: currentTenant,
                 isLoading,
+                errorMessage,
             }}
         >
             {children}

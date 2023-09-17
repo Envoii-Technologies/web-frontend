@@ -1,5 +1,5 @@
 import Keycloak from 'keycloak-js';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useContext } from 'react';
 
 const defaultAuthContextValues = {
     isAuthenticated: false,
