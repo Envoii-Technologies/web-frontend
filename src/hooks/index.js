@@ -1,2 +1,3 @@
 export { useDocumentTitle } from './useDocumentTitle';
-export { useOnPageClose } from './useOnPageClose';
+export { useAuth } from './useAuth';
+export { useTenant } from './useTenant';

@@ -9,11 +9,113 @@ volumes:
     driver: local
 
 networks:
-  envoii:
-    # external: true
+  local-envoii:
     driver: bridge
 
 services:
+  redis_gateway:
+    image: redis
+    container_name: redis_gateway
+    command: --port 6381
+    ports:
+      - "6381:6381"
+    networks:
+      local-envoii:
+        aliases:
+          - redis
+                
+  gateway:
+    build: ./gateway
+    container_name: gateway
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "8443:8443"
+      - "9876:9876"
+    volumes:
+      - ./gateway/config/system.config.yml:/usr/src/app/config/system.config.yml
+      - ./gateway/config/gateway.config.yml:/usr/src/app/config/gateway.config.yml
+    environment:
+      REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    restart: always
+    networks:
+      - local-envoii
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    networks:
+      - local-envoii
+
+  # keycloak
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: keycloak
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+      KEYCLOAK_ADMIN: admin 
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_RELATIVE_PATH: /auth
+      # KC_HOSTNAME: keycloak.company.com
+    image: quay.io/keycloak/keycloak:latest
+    command:
+      - start-dev
+    ports:
+      - "28080:8080"
+    restart: unless-stopped
+    networks:
+      - local-envoii
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - local-envoii
+
+  # database check
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - local-envoii
+
+  migration:
+    image: ghcr.io/envoii-technologies/migration:latest-develop
+    container_name: migration
+    depends_on:
+      - postgres
+      - keycloak
+    restart: on-failure
+    environment:
+      - POSTGRESQL_USER=${POSTGRESQL_USER}
+      - POSTGRESQL_PASS=${POSTGRESQL_PASS}
+      - POSTGRESQL_DB=${POSTGRESQL_DB}
+      - KEYCLOAK_URL=${KEYCLOAK_URL}
+      - MONGO_URL=${MONGO_URI}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASS=${MONGO_PASSWORD}
+    networks:
+      - local-envoii
+
   # web frontend
   web:
     container_name: frontend
@@ -29,105 +131,70 @@ services:
       - "/app/node_modules"
       - "./:/app"
     networks:
-      - envoii
+      - local-envoii
 
-  # keycloak database
-  postgres:
-    image: postgres
-    container_name: postgres
-    restart: always
-    environment:
-      POSTGRES_DB: ${POSTGRESQL_DB}
-      POSTGRES_USER: ${POSTGRESQL_USER}
-      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+  # tenant-service
+  tenant:
+    container_name: tenant
+    image: ghcr.io/envoii-technologies/tenant-service:latest-develop
+    ports: 
+      - "4000:4000"
     volumes:
-      - keycloak_data:/var/lib/postgresql/data
-    networks:
-      - envoii
-
-  # keycloak
-  keycloak:
-    depends_on:
-      - postgres
-    container_name: keycloak
+      - "/app/node_modules"
+      - "./:/app"
     environment:
-      DB_VENDOR: postgres
-      DB_ADDR: postgres
-      DB_DATABASE: ${POSTGRESQL_DB}
-      DB_USER: ${POSTGRESQL_USER}
-      DB_PASSWORD: ${POSTGRESQL_PASS}
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HTTP_RELATIVE_PATH: /auth
-      # KC_HOSTNAME: keycloak.company.com
-    image: quay.io/keycloak/keycloak:latest
-    command:
-      - start-dev
-    ports:
-      - "28080:8080"
-    restart: unless-stopped
+      SERVICE_NAME: user
+      SERVICE_PORT: 4000
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_URI: ${MONGO_URI}
+      MONGO_DB_NAME: local-develop_db
     networks:
-      - envoii
+      - local-envoii
 
-  # message cache
-  cache:
-    image: redis
-    container_name: redis
-    restart: always
+  # user-service
+  user:
+    container_name: user
+    image: ghcr.io/envoii-technologies/user-service:latest-develop
     ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+      - "4100:4100"
     volumes:
-      - cache_data:/data
-    networks:
-      - envoii
-
-  # database
-  mongo:
-    container_name: mongo
-    image: mongo
-    restart: always
+      - "/app/node_modules"
+      - "./:/app"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      SERVICE_NAME: user
+      SERVICE_PORT: 4100
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_URI: ${MONGO_URI}
+      MONGO_DB_NAME: local-develop_db
+    networks:
+      - local-envoii
+
+  # card-service
+  card:
+    container_name: card
+    image: ghcr.io/envoii-technologies/card-service:latest-develop
+    ports:
+      - "4200:4200"
     volumes:
-      - db_data:/data/db
-    ports:
-      - '27017:27017'
-    expose:
-      - 27017
-    networks:
-      - envoii
-
-  # database check
-  mongo-express:
-    container_name: mongo-express
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
+      - "/app/node_modules"
+      - "./:/app"
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      SERVICE_NAME: card
+      SERVICE_PORT: 4200
+      KEYCLOAK_URL: ${KEYCLOAK_URL}
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_URI: ${MONGO_URI}
+      MONGO_DB_NAME: local-develop_db
     networks:
-      - envoii
-
-  # development migration
-  migration:
-    container_name: migration
-    image: ghcr.io/envoii-technologies/migration:latest-develop
-    depends_on:
-      - postgres
-      - keycloak
-    restart: on-failure
-    environment:
-      - POSTGRESQL_USER=${POSTGRESQL_USER}
-      - POSTGRESQL_PASS=${POSTGRESQL_PASS}
-      - POSTGRESQL_DB=${POSTGRESQL_DB}
-      - KEYCLOAK_URL=${KEYCLOAK_URL}
-      - MONGO_URL=${MONGO_URL}
-      - MONGO_USER=${MONGO_USER}
-      - MONGO_PASS=${MONGO_PASS}
-    networks:
-      - envoii
+      - local-envoii

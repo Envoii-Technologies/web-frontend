@@ -1,10 +1,6 @@
 import { Outlet, useParams } from 'react-router-dom';
 
-import { AuthContextProvider } from '../../context/AuthContextProvider';
-import { NavBar } from './../../components/tenant';
-import { TenantContextProvider } from '../../context/TenantContextProvider';
-
-import './TenantLayout.scss';
+import { AuthContextProvider, TenantContextProvider } from '../../context';
 
 export const TenantLayout = () => {
     const { tenant } = useParams();
@@ -14,10 +10,7 @@ export const TenantLayout = () => {
             <div className="TenantLayout">
                 <AuthContextProvider tenant={tenant}>
                     <TenantContextProvider tenant={tenant}>
-                        <NavBar />
-                        <div className="TenantLayout__content">
-                            <Outlet />
-                        </div>
+                        <Outlet />
                     </TenantContextProvider>
                 </AuthContextProvider>
             </div>

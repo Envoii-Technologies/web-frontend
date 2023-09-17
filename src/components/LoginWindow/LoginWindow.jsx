@@ -19,19 +19,17 @@ export const LoginWindow = () => {
     const handleTenantCheckIn = () => {
         if (tenant.length > 0) {
             axios
-                .get(import.meta.env.VITE_TENANT_SERVICE_URL + `/${tenant}`)
+                .get(`/api/tenant/${tenant}`)
                 .then((res) => {
+                    const { tenant } = res.data;
 
-                    const { success, tenant } = res.data;
-
-                    if (success) {
-                        navigate('/' + tenant);
+                    if (tenant !== null) {
+                        navigate('/' + tenant.name);
                     } else {
                         setErrorMessage('Kein Gültiges Unternehmen.');
                     }
                 })
                 .catch((err) => {
-                    console.error(err.message);
                     setErrorMessage('Unternehmen existiert nicht.');
                 });
         } else {
